@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ease.NUnit\Ease.NUnit.csproj" />
+    <ProjectReference Include="..\Ease.Unity\Ease.Unity.csproj" />
   </ItemGroup>
 
 </Project>

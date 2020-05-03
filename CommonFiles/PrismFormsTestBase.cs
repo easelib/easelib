@@ -5,23 +5,22 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 #if IS_MSTEST
 namespace Ease.MsTest.PrismForms
-#elif IS_DRYIOC
+#elif (IS_DRYIOC && IS_NUNIT)
 namespace Ease.NUnit.DryIoc.PrismForms
-#elif IS_UNITY
+#elif (IS_UNITY && IS_NUNIT)
 namespace Ease.NUnit.Unity.PrismForms
 #endif
 {
 	public class PrismFormsTestBase
 #if IS_MSTEST
-	: DryIocContainerTestBase
-#elif IS_DRYIOC
-	: DryIocContainerTestBase
-#elif IS_UNITY
-	: UnityContainerTestBase
+	: MsTestDryIocContainerTestBase
+#elif (IS_DRYIOC && IS_NUNIT)
+	: NUnitDryIocContainerTestBase
+#elif (IS_UNITY && IS_NUNIT)
+	: NUnitUnityContainerTestBase
 #endif
 	{
 		protected Action<Mock<INavigationService>> OnINavigationServiceMockCreated;
@@ -30,18 +29,29 @@ namespace Ease.NUnit.Unity.PrismForms
 
 		protected Action<Mock<IEventAggregator>> OnIEventAggregatorMockCreated;
 
+		private bool _baseRegisterTypesCalled;
+
+		// Provides the ability to verify INavigationService extension methods
+		private Mock<IPlatformNavigationService> _mockPlatformNavigation;
+
 		public PrismFormsTestBase()
-		{
-#if IS_MSTEST
+		{ 
+		    if( !_baseRegisterTypesCalled )
+                throw new InvalidOperationException( "Always call base.RegisterTypes() when overriding!" );
 		}
 
 		protected override void RegisterTypes()
 		{
-			base.RegisterTypes();
-#endif
 			RegisterMockType(() => OnINavigationServiceMockCreated);
 			RegisterMockType(() => OnIPageDialogServiceMockCreated);
 			RegisterMockType(() => OnIEventAggregatorMockCreated);
+
+			// RegisterMockType should not take a Func<Action<<Mock<T>>> just an Action<Mock<T>>
+			// so we can automatically create the IPlatformNavigation mock.
+			// This won't be an issue if IPlatformNavigation is removed in Prism 8.0 as suggested:
+			// https://github.com/PrismLibrary/Prism/issues/1990
+			//_mockPlatformNavigation = mock.As<IPlatformNavigationService>();
+			_baseRegisterTypesCalled = true;
 		}
 
 #region INavigationServiceValidation
@@ -134,12 +144,14 @@ namespace Ease.NUnit.Unity.PrismForms
 			return navParams;
 		}
 
-		protected async Task<T> ResolveAndCallOnNavigatedToAsync<T>(NavigationMode navigationMode, params KeyValuePair<string, object>[] parameters)
-			where T : BindableBase, INavigatedAwareAsync
+		protected T ResolveAndCallOnNavigatedToAsync<T>(NavigationMode navigationMode, params KeyValuePair<string, object>[] parameters)
+			where T : BindableBase, INavigatedAware
 		{
 			var vm = ResolveType<T>();
 			var navParams = CreateNavigationParameters(navigationMode, parameters);
-			await vm.OnNavigatedToAsync(navParams);
+
+			vm.OnNavigatedTo(navParams);
+
 			return vm;
 		}
 	}

@@ -1,35 +1,35 @@
-﻿using System;
-using Moq;
+﻿using Moq;
+using System;
 using Unity;
-using Unity.Injection;
 using Unity.Lifetime;
-using Unity.Registration;
 
-namespace Ease.NUnit.Unity
+namespace Ease.Unity
 {
-	public class UnityContainerTestBase : ContainerTestBase
+	public abstract class UnityContainerTestBase : ContainerTestBase
 	{
-		protected UnityContainer Container;
-		protected LifetimeResetter Resetter { get; set; }
+		protected UnityContainer _container;
+		protected LifetimeResetter _restter { get; set; }
 
 		public UnityContainerTestBase()
 		{
-			Resetter = new LifetimeResetter();
-			Container = new UnityContainer();
-			RegisterPerTestSetup(() => 
-			{
-				Resetter.Reset();
-			});
+			CreateContainer();
+			RegisterTypes();
+		}
+
+		protected override void CreateContainer()
+		{
+			_restter = new LifetimeResetter();
+			_container = new UnityContainer();
 		}
 
 		private void RegisterResettableType<T>()
 		{
-			Container.RegisterType<T>(new ResettableLifetimeManager(Resetter));
+			_container.RegisterType<T>(new ResettableLifetimeManager(_restter));
 		}
 
 		private void RegisterResettableType<TInterface, TImplementation>() where TImplementation : TInterface
 		{
-			Container.RegisterType<TInterface, TImplementation>(new ResettableLifetimeManager(Resetter));
+			_container.RegisterType<TInterface, TImplementation>(new ResettableLifetimeManager(_restter));
 		}
 
 		private void RegisterResettableTypeFactory<T>(Func<T> factory)
@@ -39,7 +39,7 @@ namespace Ease.NUnit.Unity
 
 		private void RegisterResettableType<T>(Func<T> factory)
 		{
-			Container.RegisterFactory<T>(c => factory(), new ResettableLifetimeManager(Resetter));
+			_container.RegisterFactory<T>(c => factory(), new ResettableLifetimeManager(_restter));
 		}
 
 		protected override void RegisterMockType<T>(Func<Action<Mock<T>>> onCreatedCallbackFactory)
@@ -72,7 +72,7 @@ namespace Ease.NUnit.Unity
 
 		protected override T ResolveType<T>()
 		{
-			return Container.Resolve<T>();
+			return _container.Resolve<T>();
 		}
 
 		protected class LifetimeResetter

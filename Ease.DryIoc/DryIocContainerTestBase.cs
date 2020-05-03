@@ -1,46 +1,48 @@
-﻿using System;
-using DryIoc;
+﻿using DryIoc;
 using Moq;
+using System;
 
-namespace Ease.NUnit.DryIoc
+namespace Ease.DryIoc
 {
-	public class DryIocContainerTestBase : ContainerTestBase
+    public abstract class DryIocContainerTestBase : ContainerTestBase
 	{
-		private Container Container;
-		private IResolverContext ScopeContext;
+		protected Container _container;
+		protected IResolverContext _scopeContext;
 
 		protected DryIocContainerTestBase()
+		{
+			CreateContainer();
+			RegisterTypes();
+		}
+
+		protected override void CreateContainer()
 		{
 			var rules = Rules.Default
 				.WithConcreteTypeDynamicRegistrations()
 				.WithTrackingDisposableTransients()
 				.WithDefaultReuse(new CurrentScopeReuse());
-			Container = new Container(rules);
-			RegisterPerTestSetup(() =>
-			{
-				ScopeContext?.Dispose();
-				ScopeContext = Container.OpenScope();
-			});
+
+			_container = new Container(rules);
 		}
 
 		protected override void RegisterType<T>()
 		{
-			Container.Register<T>();
+			_container.Register<T>();
 		}
 
 		protected override void RegisterType<TInterface, TImplementation>()
 		{
-			Container.Register<TInterface, TImplementation>();
+			_container.Register<TInterface, TImplementation>();
 		}
 
 		protected override void RegisterTypeFactory<T>(Func<T> factory)
 		{
-			Container.RegisterDelegate<T>(c => factory());
+			_container.RegisterDelegate<T>(c => factory());
 		}
 
 		protected override void RegisterMockType<T>(Func<Action<Mock<T>>> onMockInstanceCreatedFactory)
 		{
-			Container.Register<T>(made: Made.Of<T>(() => CreateAndInitializeMockInstance(onMockInstanceCreatedFactory)));
+			_container.Register<T>(made: Made.Of<T>(() => CreateAndInitializeMockInstance(onMockInstanceCreatedFactory)));
 		}
 
 		private static T CreateAndInitializeMockInstance<T>(Func<Action<Mock<T>>> onMockInstanceCreatedFactory) where T : class
@@ -53,7 +55,7 @@ namespace Ease.NUnit.DryIoc
 
 		protected override T ResolveType<T>()
 		{
-			return ScopeContext.Resolve<T>();
+			return _scopeContext.Resolve<T>();
 		}
 	}
 }

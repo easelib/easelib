@@ -1,8 +1,7 @@
-﻿using System;
-using Moq;
-using NUnit.Framework;
+﻿using Moq;
+using System;
 
-namespace Ease.NUnit
+namespace Ease
 {
 	public abstract class ContainerTestBase
 	{
@@ -18,18 +17,9 @@ namespace Ease.NUnit
 		abstract protected void RegisterMockType<T>(Func<Action<Mock<T>>> onCreatedCallbackFactory)
 			where T : class;
 
-		private Action _onPerTestSetup;
+		protected abstract void CreateContainer();
 
-		[SetUp]
-		public void PerTestSetup()
-		{
-			_onPerTestSetup?.Invoke();
-		}
-
-		protected void RegisterPerTestSetup(Action perTestSetup)
-		{
-			_onPerTestSetup += perTestSetup;
-		}
+		protected abstract void RegisterTypes();
 
 		protected Mock<T> GetMock<T>() 
 			where T : class
