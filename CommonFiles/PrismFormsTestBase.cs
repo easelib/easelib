@@ -14,6 +14,8 @@ namespace Ease.NUnit.DryIoc.PrismForms
 namespace Ease.XUnit.DryIoc.PrismForms
 #elif (IS_UNITY && IS_NUNIT)
 namespace Ease.NUnit.Unity.PrismForms
+#elif (IS_UNITY && IS_XUNIT)
+namespace Ease.XUnit.Unity.PrismForms
 #endif
 {
 	public class PrismFormsTestBase
@@ -25,6 +27,8 @@ namespace Ease.NUnit.Unity.PrismForms
 	: XUnitDryIocContainerTestBase
 #elif (IS_UNITY && IS_NUNIT)
 	: NUnitUnityContainerTestBase
+#elif (IS_UNITY && IS_XUNIT)
+	: XUnitUnityContainerTestBase
 #endif
 	{
 		protected Action<Mock<INavigationService>> OnINavigationServiceMockCreated;

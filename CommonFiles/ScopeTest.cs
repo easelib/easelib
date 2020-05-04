@@ -17,6 +17,8 @@ namespace Ease.NUnit.Unity.PrismForms.Tests
 using Xunit;
 #if IS_DRYIOC
 namespace Ease.XUnit.DryIoc.PrismForms.Tests
+#elif IS_UNITY
+namespace Ease.XUnit.Unity.PrismForms.Tests
 #endif
 #endif
 {

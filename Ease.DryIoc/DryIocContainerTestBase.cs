@@ -23,6 +23,8 @@ namespace Ease.DryIoc
 				.WithDefaultReuse(new CurrentScopeReuse());
 
 			_container = new Container(rules);
+
+			_scopeContext = _container.OpenScope();
 		}
 
 		protected override void RegisterType<T>()
