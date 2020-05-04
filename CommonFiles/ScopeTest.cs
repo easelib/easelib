@@ -2,6 +2,7 @@
 using System;
 using Ease.TestCommon;
 using Prism.Navigation;
+using System.Threading.Tasks;
 
 #if IS_MSTEST
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -140,7 +141,9 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 		{
 			onIRepoMockCreated += configureIRepoWithOverridenValue;
 			var vm = ResolveType<VM>();
+
 			vm.DoSaveData();
+
 			ValidateMock<IRepo>(m => m.Verify(i => i.SaveData(), Times.Once));
 		}
 
@@ -242,11 +245,13 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 #elif IS_XUNIT
 		[Fact]
 #endif
-		public void VmCallsNavigationServiceWithTargetWhenDoNavigation()
+		public async Task VmCallsNavigationServiceWithTargetWhenDoNavigation()
 		{
 			var target = "TargetPath";
 			var vm = ResolveType<VM>();
-			vm.DoNavigation(target).Wait();
+
+			await vm.DoNavigation(target);
+
 			VerifyNavigation(target, Times.Once);
 		}
 
@@ -257,11 +262,13 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 #elif IS_XUNIT
 		[Fact]
 #endif
-		public void VmCallsNavigationServiceWithTargetWhenDoNavigationWithParameters()
+		public async Task VmCallsNavigationServiceWithTargetWhenDoNavigationWithParameters()
 		{
 			var target = "TargetPath";
 			var vm = ResolveType<VM>();
-			vm.DoNavigationWithParameters(target).Wait();
+			
+			await vm.DoNavigationWithParameters(target);
+
 			VerifyNavigation(target, null as INavigationParameters, Times.Once);
 		}
 
@@ -272,11 +279,13 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 #elif IS_XUNIT
 		[Fact]
 #endif
-		public void VmCallsNavigationServiceWithParameterValidationWhenDoNavigationWithParameters()
+		public async Task VmCallsNavigationServiceWithParameterValidationWhenDoNavigationWithParameters()
 		{
 			var target = "TargetPath";
 			var vm = ResolveType<VM>();
-			vm.DoNavigationWithParameters(target).Wait();
+
+			await vm.DoNavigationWithParameters(target);
+
 			VerifyNavigation(target, p => p.ContainsKey("x") && p.GetValue<string>("x").Equals("1"), Times.Once);
 		}
 
@@ -287,11 +296,13 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 #elif IS_XUNIT
 		[Fact]
 #endif
-		public void VmCallsNavigationServiceWithTargetWhenDoNavigationWithParametersCheckingSpecificParameters()
+		public async Task VmCallsNavigationServiceWithTargetWhenDoNavigationWithParametersCheckingSpecificParameters()
 		{
 			var target = "TargetPath";
 			var vm = ResolveType<VM>();
-			vm.DoNavigationWithParameters(target).Wait();
+
+			await vm.DoNavigationWithParameters(target);
+
 			VerifyNavigation(target, new NavigationParameters("x=1"), Times.Once);
 		}
 	}
