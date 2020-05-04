@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;IS_DRYIOC;IS_XUNIT</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CommonFiles\PrismFormsTestBase.cs" Link="PrismFormsTestBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ease.xUnit.DryIoc\Ease.XUnit.DryIoc.csproj" />
+  </ItemGroup>
+
+</Project>

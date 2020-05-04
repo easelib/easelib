@@ -10,6 +10,8 @@ using System.Collections.Generic;
 namespace Ease.MsTest.PrismForms
 #elif (IS_DRYIOC && IS_NUNIT)
 namespace Ease.NUnit.DryIoc.PrismForms
+#elif (IS_DRYIOC && IS_XUNIT)
+namespace Ease.XUnit.DryIoc.PrismForms
 #elif (IS_UNITY && IS_NUNIT)
 namespace Ease.NUnit.Unity.PrismForms
 #endif
@@ -19,6 +21,8 @@ namespace Ease.NUnit.Unity.PrismForms
 	: MsTestDryIocContainerTestBase
 #elif (IS_DRYIOC && IS_NUNIT)
 	: NUnitDryIocContainerTestBase
+#elif (IS_DRYIOC && IS_XUNIT)
+	: XUnitDryIocContainerTestBase
 #elif (IS_UNITY && IS_NUNIT)
 	: NUnitUnityContainerTestBase
 #endif
@@ -37,7 +41,7 @@ namespace Ease.NUnit.Unity.PrismForms
 		public PrismFormsTestBase()
 		{ 
 		    if( !_baseRegisterTypesCalled )
-                throw new InvalidOperationException( "Always call base.RegisterTypes() when overriding!" );
+				throw new InvalidOperationException("Inherited classes must call base.RegisterTypes() when overriding");
 		}
 
 		protected override void RegisterTypes()
