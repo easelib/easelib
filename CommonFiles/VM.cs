@@ -39,9 +39,14 @@ namespace Ease.TestCommon
 			return NavigationService.GoBackAsync();
 		}
 
-		public Task GoBackWithParametersAsync()
+		public Task GoBackAsync(INavigationParameters parameters, bool useModalNavigation, bool animated)
 		{
-			return NavigationService.GoBackAsync(new NavigationParameters("x=1"));
+			return NavigationService.GoBackAsync(parameters, useModalNavigation, animated);
+		}
+
+		public Task GoBackWithParametersAsync(INavigationParameters parameters)
+		{
+			return NavigationService.GoBackAsync(parameters);
 		}
 	}
 }
