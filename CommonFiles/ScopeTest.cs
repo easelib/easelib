@@ -327,10 +327,14 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 		public async Task VmCallsNavigationServicecWhenGoBackAsyncParametersCheckingSpecificParameters()
 		{
 			var vm = ResolveType<VM>();
+			var navigationParameters = new NavigationParameters()
+			{
+				{ "x", "1" }
+			};
 
-			await vm.GoBackWithParametersAsync();
+			await vm.GoBackWithParametersAsync(navigationParameters);
 
-			VerifyNavigationGoBack(new NavigationParameters("x=1"), Times.Once);
+			VerifyNavigationGoBack(navigationParameters, Times.Once);
 		}
 
 #if IS_MSTEST
@@ -342,11 +346,35 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 #endif
 		public async Task VmCallsNavigationServiceWithParameterValidationWhenGoBackAsyncWithParameters()
 		{
+			string parameterKey = "x";
+			string parameterValue = "1";
+
 			var vm = ResolveType<VM>();
+			var navigationParameters = new NavigationParameters()
+			{
+				{ parameterKey, parameterValue }
+			};
 
-			await vm.GoBackWithParametersAsync();
+			await vm.GoBackWithParametersAsync(navigationParameters);
 
-			VerifyNavigationGoBack(p => p.ContainsKey("x") && p.GetValue<string>("x").Equals("1"), Times.Once);
+			VerifyNavigationGoBack(p => p.ContainsKey(parameterKey) && p.GetValue<string>(parameterKey).Equals(parameterValue), Times.Once);
+		}
+
+#if IS_MSTEST
+		[TestMethod]
+#elif IS_NUNIT
+		[Test]
+#elif IS_XUNIT
+		[Fact]
+#endif
+		public async Task VmCallsNavigationServicecWhenGoBackAsyncWithModalNavigation()
+		{
+			var vm = ResolveType<VM>();
+			var navigationParameters = new NavigationParameters();
+
+			await vm.GoBackAsync(navigationParameters, true, true);
+
+			VerifyNavigationGoBack(navigationParameters, true, true, Times.Once);
 		}
 	}
 }
