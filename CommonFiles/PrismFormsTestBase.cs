@@ -4,7 +4,6 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 #if IS_MSTEST
@@ -40,12 +39,9 @@ namespace Ease.XUnit.Unity.PrismForms
 
 		private bool _baseRegisterTypesCalled;
 
-		// Provides the ability to verify INavigationService extension methods
-		private Mock<IPlatformNavigationService> _mockPlatformNavigation;
-
 		public PrismFormsTestBase()
-		{ 
-		    if( !_baseRegisterTypesCalled )
+		{
+			if ( !_baseRegisterTypesCalled )
 				throw new InvalidOperationException("Inherited classes must call base.RegisterTypes() when overriding");
 		}
 
@@ -53,10 +49,10 @@ namespace Ease.XUnit.Unity.PrismForms
 		{
 			OnINavigationServiceMockCreated += (mock) =>
 			{
-				// Get the INavigationService mock as IPlatformNavigationService so that we can call extension methods
+				// Get the INavigationService mock as IPlatformNavigationService so that we can verify extension methods
 				// This won't need to be done if IPlatformNavigationService is removed in Prism 8.0 as suggested:
 				// https://github.com/PrismLibrary/Prism/issues/1990
-				_mockPlatformNavigation = mock.As<IPlatformNavigationService>();
+				mock.As<IPlatformNavigationService>();
 			};
 
 			RegisterMockType(() => OnINavigationServiceMockCreated);
@@ -160,7 +156,10 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(Uri uri, INavigationParameters parameters, bool useModalNavigation, bool animated, Func<Times> times)
 		{
-			_mockPlatformNavigation.Verify(x => x.NavigateAsync(uri, parameters, useModalNavigation, animated), times);
+			var navServiceMock = Mock.Get(ResolveType<INavigationService>());
+			var mockPlatformNavigation = navServiceMock.As<IPlatformNavigationService>();
+
+			mockPlatformNavigation.Verify(x => x.NavigateAsync(uri, parameters, useModalNavigation, animated), times);
 		}
 
 		/// <summary>
@@ -173,7 +172,10 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(Uri uri, Expression<Func<INavigationParameters, bool>> parameterValidation, bool useModalNavigation, bool animated, Func<Times> times)
 		{
-			_mockPlatformNavigation.Verify(x => x.NavigateAsync(uri, It.Is(parameterValidation), useModalNavigation, animated), times);
+			var navServiceMock = Mock.Get(ResolveType<INavigationService>());
+			var mockPlatformNavigation = navServiceMock.As<IPlatformNavigationService>();
+
+			mockPlatformNavigation.Verify(x => x.NavigateAsync(uri, It.Is(parameterValidation), useModalNavigation, animated), times);
 		}
 
 		/// <summary>
@@ -186,7 +188,10 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(string path, INavigationParameters parameters, bool useModalNavigation, bool animated, Func<Times> times)
 		{
-			_mockPlatformNavigation.Verify(x => x.NavigateAsync(path, parameters, useModalNavigation, animated), times);
+			var navServiceMock = Mock.Get(ResolveType<INavigationService>());
+			var mockPlatformNavigation = navServiceMock.As<IPlatformNavigationService>();
+
+			mockPlatformNavigation.Verify(x => x.NavigateAsync(path, parameters, useModalNavigation, animated), times);
 		}
 
 		/// <summary>
@@ -199,7 +204,10 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(string path, Expression<Func<INavigationParameters, bool>> parameterValidation, bool useModalNavigation, bool animated, Func<Times> times)
 		{
-			_mockPlatformNavigation.Verify(x => x.NavigateAsync(path, It.Is(parameterValidation), useModalNavigation, animated), times);
+			var navServiceMock = Mock.Get(ResolveType<INavigationService>());
+			var mockPlatformNavigation = navServiceMock.As<IPlatformNavigationService>();
+
+			mockPlatformNavigation.Verify(x => x.NavigateAsync(path, It.Is(parameterValidation), useModalNavigation, animated), times);
 		}
 
 		/// <summary>
@@ -211,7 +219,10 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.GoBackAsync should have been called</param>
 		protected void VerifyNavigationGoBack(INavigationParameters parameters, bool useModalNavigation, bool animated, Func<Times> times)
 		{
-			_mockPlatformNavigation.Verify(x => x.GoBackAsync(parameters, useModalNavigation, animated), times);
+			var navServiceMock = Mock.Get(ResolveType<INavigationService>());
+			var mockPlatformNavigation = navServiceMock.As<IPlatformNavigationService>();
+
+			mockPlatformNavigation.Verify(x => x.GoBackAsync(parameters, useModalNavigation, animated), times);
 		}
 
 		/// <summary>
@@ -223,26 +234,23 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.GoBackAsync should have been called</param>
 		protected void VerifyNavigationGoBack(Expression<Func<INavigationParameters, bool>> parameterValidation, bool useModalNavigation, bool animated, Func<Times> times)
 		{
-			_mockPlatformNavigation.Verify(x => x.GoBackAsync(It.Is(parameterValidation), useModalNavigation, animated), times);
+			//_mockPlatformNavigation.Verify(x => x.GoBackAsync(It.Is(parameterValidation), useModalNavigation, animated), times);
 		}
 
 		#endregion IPlatformNavigationService Validation
 
-		protected NavigationParameters CreateNavigationParameters(NavigationMode navigationMode, params KeyValuePair<string, object>[] parameters)
+		protected INavigationParameters CreateNavigationParameters(NavigationMode navigationMode, INavigationParameters parameters)
 		{
-			var navParams = new NavigationParameters();
-			var internalParams = navParams as INavigationParametersInternal;
+			if (parameters == null)
+				parameters = new NavigationParameters();
+
+			INavigationParametersInternal internalParams = parameters as INavigationParametersInternal;
 			internalParams.Add("__NavigationMode", navigationMode);
 
-			foreach (var parameter in parameters)
-			{
-				navParams.Add(parameter.Key, parameter.Value);
-			}
-
-			return navParams;
+			return parameters;
 		}
 
-		protected T ResolveAndCallOnNavigatedToAsync<T>(NavigationMode navigationMode, params KeyValuePair<string, object>[] parameters)
+		protected T ResolveAndCallOnNavigatedToAsync<T>(NavigationMode navigationMode, INavigationParameters parameters)
 			where T : BindableBase, INavigatedAware
 		{
 			var vm = ResolveType<T>();
