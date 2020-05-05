@@ -1,5 +1,6 @@
 ﻿using Prism.Mvvm;
 using Prism.Navigation;
+using System;
 using System.Threading.Tasks;
 
 namespace Ease.TestCommon
@@ -29,24 +30,44 @@ namespace Ease.TestCommon
 			return NavigationService.NavigateAsync(target);
 		}
 
-		public Task DoNavigationWithParametersAsync(string target)
+		public Task DoNavigationAsync(string target, INavigationParameters parameters)
 		{
-			return NavigationService.NavigateAsync(target, new NavigationParameters("x=1"));
+			return NavigationService.NavigateAsync(target, parameters);
 		}
 
-		public Task GoBackAsync()
+		public Task DoNavigationAsync(string target, INavigationParameters parameters, bool useModalNavigation, bool animated)
+		{
+			return NavigationService.NavigateAsync(target, parameters, useModalNavigation, animated);
+		}
+
+		public Task DoNavigationAsync(Uri target)
+		{
+			return NavigationService.NavigateAsync(target);
+		}
+
+		public Task DoNavigationAsync(Uri target, INavigationParameters parameters)
+		{
+			return NavigationService.NavigateAsync(target, parameters);
+		}
+
+		public Task DoNavigationAsync(Uri target, INavigationParameters parameters, bool useModalNavigation, bool animated)
+		{
+			return NavigationService.NavigateAsync(target, parameters, useModalNavigation, animated);
+		}
+
+		public Task DoGoBackAsync()
 		{
 			return NavigationService.GoBackAsync();
 		}
 
-		public Task GoBackAsync(INavigationParameters parameters, bool useModalNavigation, bool animated)
-		{
-			return NavigationService.GoBackAsync(parameters, useModalNavigation, animated);
-		}
-
-		public Task GoBackWithParametersAsync(INavigationParameters parameters)
+		public Task DoGoBackAsync(INavigationParameters parameters)
 		{
 			return NavigationService.GoBackAsync(parameters);
+		}
+
+		public Task DoGoBackAsync(INavigationParameters parameters, bool useModalNavigation, bool animated)
+		{
+			return NavigationService.GoBackAsync(parameters, useModalNavigation, animated);
 		}
 	}
 }
