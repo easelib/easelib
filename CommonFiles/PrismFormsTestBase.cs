@@ -1,10 +1,12 @@
 using Moq;
+using Prism.AppModel;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 #if IS_MSTEST
 namespace Ease.MsTest.PrismForms
@@ -239,6 +241,122 @@ namespace Ease.XUnit.Unity.PrismForms
 
 		#endregion IPlatformNavigationService Validation
 
+		#region IInitialize
+
+		/// <summary>
+		/// Resolves the ViewModel and calls Initialize
+		/// </summary>
+		/// <typeparam name="T">The ViewModel type to resolve</typeparam>
+		/// <param name="parameters">The navigation parameters to pass through to Initialize</param>
+		/// <returns>The resolved instance of the desired ViewModel</returns>
+		protected T ResolveAndCallInitialize<T>(INavigationParameters parameters = null)
+			where T : BindableBase, IInitialize
+		{
+			T vm = ResolveType<T>();
+			var navParams = CreateNavigationParameters(NavigationMode.New, parameters);
+
+			vm.Initialize(navParams);
+
+			return vm;
+		}
+
+		#endregion IInitialize
+
+		#region IInitializeAsync
+
+		/// <summary>
+		/// Resolves the ViewModel and calls IInitializeAsync
+		/// </summary>
+		/// <typeparam name="T">The ViewModel type to resolve</typeparam>
+		/// <param name="parameters">The navigation parameters to pass through to InitializeAsync</param>
+		/// <returns>The resolved instance of the desired ViewModel</returns>
+		protected async Task<T> ResolveAndCallInitializeAsync<T>(INavigationParameters parameters = null)
+			where T : BindableBase, IInitializeAsync
+		{
+			T vm = ResolveType<T>();
+			var navParams = CreateNavigationParameters(NavigationMode.New, parameters);
+
+			await vm.InitializeAsync(navParams);
+
+			return vm;
+		}
+
+		#endregion IInitializeAsync
+
+		#region INavigatedAware
+
+		/// <summary>
+		/// Resolves the ViewModel and calls OnNavigatedTo
+		/// </summary>
+		/// <typeparam name="T">The ViewModel type to resolve</typeparam>
+		/// <param name="navigationMode">The navigation mode that will be added to the navigation parameters</param>
+		/// <param name="parameters">The navigation parameters to pass through to OnNavigatedFrom</param>
+		/// <returns>The resolved instance of the desired ViewModel</returns>
+		protected T ResolveAndCallOnNavigatedTo<T>(NavigationMode navigationMode, INavigationParameters parameters)
+			where T : BindableBase, INavigatedAware
+		{
+			var vm = ResolveType<T>();
+			var navParams = CreateNavigationParameters(navigationMode, parameters);
+
+			vm.OnNavigatedTo(navParams);
+
+			return vm;
+		}
+
+		/// <summary>
+		/// Resolves the ViewModel and calls OnNavigatedFrom
+		/// </summary>
+		/// <typeparam name="T">The ViewModel type to resolve</typeparam>
+		/// <param name="navigationMode">The navigation mode that will be added to the navigation parameters</param>
+		/// <param name="parameters">The navigation parameters to pass through to OnNavigatedFrom</param>
+		/// <returns>The resolved instance of the desired ViewModel</returns>
+		protected T ResolveAndCallOnNavigatedFrom<T>(NavigationMode navigationMode, INavigationParameters parameters = null)
+			where T : BindableBase, INavigatedAware
+		{
+			T vm = ResolveType<T>();
+			var navParams = CreateNavigationParameters(navigationMode, parameters);
+
+			vm.OnNavigatedFrom(navParams);
+
+			return vm;
+		}
+
+		#endregion INavigatedAware
+
+		#region IPageLifeCycleAware
+
+		/// <summary>
+		/// Resolves the ViewModel and calls OnAppearing
+		/// </summary>
+		/// <typeparam name="T">The ViewModel type to resolve</typeparam>
+		/// <returns>The resolved instance of the desired ViewModel</returns>
+		protected T ResolveAndCallOnAppearing<T>()
+			 where T : BindableBase, IPageLifecycleAware
+		{
+			T vm = ResolveType<T>();
+
+			vm.OnAppearing();
+
+			return vm;
+		}
+
+		/// <summary>
+		/// Resolves the ViewModel and calls OnDisappearing
+		/// </summary>
+		/// <typeparam name="T">The ViewModel type to resolve</typeparam>
+		/// <returns>The resolved instance of the desired ViewModel</returns>
+		protected T ResolveAndCallOnDisappearing<T>()
+			where T : BindableBase, IPageLifecycleAware
+		{
+			T vm = ResolveType<T>();
+
+			vm.OnDisappearing();
+
+			return vm;
+		}
+
+		#endregion IPageLifeCycleAware
+
 		protected INavigationParameters CreateNavigationParameters(NavigationMode navigationMode, INavigationParameters parameters)
 		{
 			if (parameters == null)
@@ -248,17 +366,6 @@ namespace Ease.XUnit.Unity.PrismForms
 			internalParams.Add("__NavigationMode", navigationMode);
 
 			return parameters;
-		}
-
-		protected T ResolveAndCallOnNavigatedToAsync<T>(NavigationMode navigationMode, INavigationParameters parameters)
-			where T : BindableBase, INavigatedAware
-		{
-			var vm = ResolveType<T>();
-			var navParams = CreateNavigationParameters(navigationMode, parameters);
-
-			vm.OnNavigatedTo(navParams);
-
-			return vm;
 		}
 	}
 }
