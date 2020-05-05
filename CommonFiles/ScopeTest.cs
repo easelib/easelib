@@ -387,5 +387,57 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 
 			VerifyNavigationGoBack(navigationParameters, true, true, Times.Once);
 		}
+
+#if IS_MSTEST
+		[TestMethod]
+#elif IS_NUNIT
+		[Test]
+#elif IS_XUNIT
+		[Fact]
+#endif
+		public async Task AddNavigationCallbackInvokedWhenDoNavigationAsyncWithString()
+		{
+			bool callbackInvoked = false;
+			var vm = ResolveType<VM>();
+
+			AddNavigationCallback((string path, INavigationParameters parameters, bool? useModalNavigation, bool animated) =>
+			{
+				callbackInvoked = true;
+			});
+
+			await vm.DoNavigationAsync("target_path", new NavigationParameters(), false, false );
+
+#if IS_XUNIT
+			Assert.True(callbackInvoked);
+#else
+			Assert.IsTrue(callbackInvoked);
+#endif
+		}
+
+#if IS_MSTEST
+		[TestMethod]
+#elif IS_NUNIT
+		[Test]
+#elif IS_XUNIT
+		[Fact]
+#endif
+		public async Task AddNavigationCallbackInvokedWhenDoNavigationAsyncWithUri()
+		{
+			bool callbackInvoked = false;
+			var vm = ResolveType<VM>();
+
+			AddNavigationCallback((Uri uri, INavigationParameters parameters, bool? useModalNavigation, bool animated) =>
+			{
+				callbackInvoked = true;
+			});
+
+			await vm.DoNavigationAsync(new Uri("target/path", UriKind.RelativeOrAbsolute), new NavigationParameters(), false, false);
+
+#if IS_XUNIT
+			Assert.True(callbackInvoked);
+#else
+			Assert.IsTrue(callbackInvoked);
+#endif
+		}
 	}
 }
