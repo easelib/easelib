@@ -68,16 +68,29 @@ namespace Ease.XUnit.Unity.PrismForms
 			_baseRegisterTypesCalled = true;
 		}
 
+		/// <summary>
+		/// Add a callback that will be invoked whenever NavigateAsync is called
+		/// </summary>
+		/// <param name="callback">The callback to be invoked</param>
+		protected void AddNavigationCallback(Action<Uri, INavigationParameters, bool?, bool> callback)
 		{
-			var navServiceMock = GetMock<INavigationService>();
-			navServiceMock.Setup(s => s.NavigateAsync(It.IsAny<Uri>(), It.IsAny<NavigationParameters>(), It.IsAny<bool?>(), It.IsAny<bool>()))
+			var mockPlatformNavigation = GetMock<INavigationService>()
+				.As<IPlatformNavigationService>();
+
+			mockPlatformNavigation.Setup(s => s.NavigateAsync(It.IsAny<Uri>(), It.IsAny<NavigationParameters>(), It.IsAny<bool?>(), It.IsAny<bool>()))
 				.Callback(callback);
 		}
 
-		protected void AddNavigationCallback(Action<String, NavigationParameters, bool?, bool> callback)
+		/// <summary>
+		/// Add a callback that will be invoked whenever NavigateAsync is called
+		/// </summary>
+		/// <param name="callback">The callback to be invoked</param>
+		protected void AddNavigationCallback(Action<string, INavigationParameters, bool?, bool> callback)
 		{
-			var navServiceMock = GetMock<INavigationService>();
-			navServiceMock.Setup(s => s.NavigateAsync(It.IsAny<String>(), It.IsAny<NavigationParameters>(), It.IsAny<bool?>(), It.IsAny<bool>()))
+			var mockPlatformNavigation = GetMock<INavigationService>()
+				.As<IPlatformNavigationService>();
+
+			mockPlatformNavigation.Setup(s => s.NavigateAsync(It.IsAny<string>(), It.IsAny<NavigationParameters>(), It.IsAny<bool?>(), It.IsAny<bool>()))
 				.Callback(callback);
 		}
 
