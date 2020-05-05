@@ -47,6 +47,10 @@ namespace Ease.XUnit.Unity.PrismForms
 				throw new InvalidOperationException("Inherited classes must call base.RegisterTypes() when overriding");
 		}
 
+		/// <summary>
+		/// <para>Regsiter any types that are required by the test.</para>
+		/// <para>You should always call base when overriding as it registers Prism.INavigationService and Prism.IPlatformNavigationService.</para>
+		/// </summary>
 		protected override void RegisterTypes()
 		{
 			OnINavigationServiceMockCreated += (mock) =>
@@ -64,9 +68,6 @@ namespace Ease.XUnit.Unity.PrismForms
 			_baseRegisterTypesCalled = true;
 		}
 
-		#region INavigationService Validation
-
-		protected void AddNavigationCallback(Action<Uri, NavigationParameters, bool?, bool> callback)
 		{
 			var navServiceMock = GetMock<INavigationService>();
 			navServiceMock.Setup(s => s.NavigateAsync(It.IsAny<Uri>(), It.IsAny<NavigationParameters>(), It.IsAny<bool?>(), It.IsAny<bool>()))
@@ -80,30 +81,60 @@ namespace Ease.XUnit.Unity.PrismForms
 				.Callback(callback);
 		}
 
+		#region INavigationService Validation
+
+		/// <summary>
+		/// Verify that INavigationService.NavigateAsync was called
+		/// </summary>
+		/// <param name="uri">The Uri that was expected to be navigated to</param>
+		/// <param name="times">The Moq.Times object that represents the expected number of times INavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(Uri uri, Func<Times> times)
 		{
 			var navServiceMock = GetMock<INavigationService>();
 			navServiceMock.Verify(n => n.NavigateAsync(uri), times);
 		}
 
+		/// <summary>
+		/// Verify that INavigationService.NavigateAsync was called
+		/// </summary>
+		/// <param name="uri">The Uri that was expected to be navigated to</param>
+		/// <param name="parameters">The expected navigation parameters</param>
+		/// <param name="times">The Moq.Times object that represents the expected number of times INavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(Uri uri, INavigationParameters parameters, Func<Times> times)
 		{
 			var navServiceMock = GetMock<INavigationService>();
 			navServiceMock.Verify(n => n.NavigateAsync(uri, parameters), times);
 		}
 
+		/// <summary>
+		/// Verify that INavigationService.NavigateAsync was called
+		/// </summary>
+		/// <param name="uri">The Uri that was expected to be navigated to</param>
+		/// <param name="parameterValidation">Predicate that is passed to Moq.It.Is to validate the expected navigation parameters</param>
+		/// <param name="times">The Moq.Times object that represents the expected number of times INavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(Uri uri, Expression<Func<INavigationParameters, bool>> parameterValidation, Func<Times> times)
 		{
 			var navServiceMock = GetMock<INavigationService>();
 			navServiceMock.Verify(n => n.NavigateAsync(uri, It.Is(parameterValidation)), times);
 		}
 
+		/// <summary>
+		/// Verify that INavigationService.NavigateAsync was called
+		/// </summary>
+		/// <param name="path">The path that was expected to be navigated to</param>
+		/// <param name="times">The Moq.Times object that represents the expected number of times INavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(string path, Func<Times> times)
 		{
 			var navServiceMock = GetMock<INavigationService>();
 			navServiceMock.Verify(n => n.NavigateAsync(path), times);
 		}
 
+		/// <summary>
+		/// Verify that INavigationService.NavigateAsync was called
+		/// </summary>
+		/// <param name="path">The path that was expected to be navigated to</param>
+		/// <param name="parameters">The expected navigation parameters</param>
+		/// <param name="times">The Moq.Times object that represents the expected number of times INavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(string path, INavigationParameters parameters, Func<Times> times)
 		{
 			var navServiceMock = GetMock<INavigationService>();
@@ -117,24 +148,44 @@ namespace Ease.XUnit.Unity.PrismForms
 			}
 		}
 
+		/// <summary>
+		/// Verify that INavigationService.NavigateAsync was called
+		/// </summary>
+		/// <param name="path">The path that was expected to be navigated to</param>
+		/// <param name="parameterValidation">Predicate that is passed to Moq.It.Is to validate the expected navigation parameters</param>
+		/// <param name="times">The Moq.Times object that represents the expected number of times INavigationService.NavigateAsync should have been called</param>
 		protected void VerifyNavigation(string path, Expression<Func<INavigationParameters, bool>> parameterValidation, Func<Times> times)
 		{
 			var navServiceMock = GetMock<INavigationService>();
 			navServiceMock.Verify(n => n.NavigateAsync(path, It.Is(parameterValidation)), times);
 		}
 
+		/// <summary>
+		/// Verify that INavigationService.GoBackAsync was called
+		/// </summary>
+		/// <param name="times">The Moq.Times object that represents the expected number of times INavigationService.GoBackAsync should have been called</param>
 		protected void VerifyNavigationGoBack(Func<Times> times)
 		{
 			var navServiceMock = GetMock<INavigationService>();
 			navServiceMock.Verify(n => n.GoBackAsync(), times);
 		}
 
+		/// <summary>
+		/// Verify that INavigationService.GoBackAsync was called
+		/// </summary>
+		/// <param name="parameters">The expected navigation parameters</param>
+		/// <param name="times">The Moq.Times object that represents the expected number of times INavigationService.GoBackAsync should have been called</param>
 		protected void VerifyNavigationGoBack(INavigationParameters parameters, Func<Times> times)
 		{
 			var navServiceMock = GetMock<INavigationService>();
 			navServiceMock.Verify(n => n.GoBackAsync(parameters), times);
 		}
 
+		/// <summary>
+		/// Verify that INavigationService.GoBackAsync was called
+		/// </summary>
+		/// <param name="parameterValidation">Predicate that is passed to Moq.It.Is to validate the expected navigation parameters</param>
+		/// <param name="times">The Moq.Times object that represents the expected number of times INavigationService.GoBackAsync should have been called</param>
 		protected void VerifyNavigationGoBack(Expression<Func<INavigationParameters, bool>> parameterValidation, Func<Times> times)
 		{
 			var navServiceMock = GetMock<INavigationService>();
