@@ -46,29 +46,24 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 				.Returns(_iRepoOverridenMyPropertyValue);
 		};
 
+		public ScopeTest()
+		{
 #if (IS_MSTEST || IS_XUNIT)
-		public ScopeTest()
-		{
 			onIRepoMockCreated = configureIRepoMockWithDefaultValue;
-		}
-
-		protected override void RegisterTypes()
-		{
-			base.RegisterTypes();
-			RegisterMockType(() => onIRepoMockCreated);
-		}
-#else
-		public ScopeTest()
-		{
-			RegisterMockType(() => onIRepoMockCreated);
-#if IS_NUNIT
+#elif IS_NUNIT
 			RegisterPerTestSetup(() =>
 			{
 				onIRepoMockCreated = configureIRepoMockWithDefaultValue;
 			});
 #endif
 		}
-#endif
+
+		protected override void RegisterTypes()
+		{
+			base.RegisterTypes();
+
+			RegisterMockType(() => onIRepoMockCreated);
+		}
 
 #if IS_MSTEST
 		[TestMethod]
