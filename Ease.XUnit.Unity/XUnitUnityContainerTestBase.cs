@@ -4,6 +4,6 @@ namespace Ease.XUnit.Unity
 {
     public abstract class XUnitUnityContainerTestBase : UnityContainerTestBase
     {
-        // Can this project be complete removed?
+        // Added for consistency between testing frameworks, do we need this for xUnit?
     }
 }

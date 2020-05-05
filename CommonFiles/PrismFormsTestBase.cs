@@ -128,13 +128,19 @@ namespace Ease.XUnit.Unity.PrismForms
 			navServiceMock.Verify(n => n.NavigateAsync(path, It.Is(parameterValidation)), times);
 		}
 
-		protected void VerifyNavigationGoBackAsync(Func<Times> times)
+		protected void VerifyNavigationGoBack(Func<Times> times)
 		{
 			var navServiceMock = Mock.Get(ResolveType<INavigationService>());
 			navServiceMock.Verify(n => n.GoBackAsync(), times);
 		}
 
-		protected void VerifyNavigationGoBackAsync(Expression<Func<INavigationParameters, bool>> parameterValidation, Func<Times> times)
+		protected void VerifyNavigationGoBack(INavigationParameters parameters, Func<Times> times)
+		{
+			var navServiceMock = Mock.Get(ResolveType<INavigationService>());
+			navServiceMock.Verify(n => n.GoBackAsync(parameters), times);
+		}
+
+		protected void VerifyNavigationGoBack(Expression<Func<INavigationParameters, bool>> parameterValidation, Func<Times> times)
 		{
 			var navServiceMock = Mock.Get(ResolveType<INavigationService>());
 			navServiceMock.Verify(n => n.GoBackAsync(It.Is(parameterValidation)), times);
@@ -152,7 +158,7 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="useModalNavigation">Whether or not the expected navigation should have been modal</param>
 		/// <param name="animated">Whether or not the expected navigation should have been animated</param>
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.NavigateAsync should have been called</param>
-		protected void VerifyNavigateAsync(Uri uri, INavigationParameters parameters, bool useModalNavigation, bool animated, Func<Times> times)
+		protected void VerifyNavigation(Uri uri, INavigationParameters parameters, bool useModalNavigation, bool animated, Func<Times> times)
 		{
 			_mockPlatformNavigation.Verify(x => x.NavigateAsync(uri, parameters, useModalNavigation, animated), times);
 		}
@@ -165,7 +171,7 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="useModalNavigation">Whether or not the expected navigation should have been modal</param>
 		/// <param name="animated">Whether or not the expected navigation should have been animated</param>
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.NavigateAsync should have been called</param>
-		protected void VerifyNavigateAsync(Uri uri, Expression<Func<INavigationParameters, bool>> parameterValidation, bool useModalNavigation, bool animated, Func<Times> times)
+		protected void VerifyNavigation(Uri uri, Expression<Func<INavigationParameters, bool>> parameterValidation, bool useModalNavigation, bool animated, Func<Times> times)
 		{
 			_mockPlatformNavigation.Verify(x => x.NavigateAsync(uri, It.Is(parameterValidation), useModalNavigation, animated), times);
 		}
@@ -178,7 +184,7 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="useModalNavigation">Whether or not the expected navigation should have been modal</param>
 		/// <param name="animated">Whether or not the expected navigation should have been animated</param>
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.NavigateAsync should have been called</param>
-		protected void VerifyNavigateAsync(string path, INavigationParameters parameters, bool useModalNavigation, bool animated, Func<Times> times)
+		protected void VerifyNavigation(string path, INavigationParameters parameters, bool useModalNavigation, bool animated, Func<Times> times)
 		{
 			_mockPlatformNavigation.Verify(x => x.NavigateAsync(path, parameters, useModalNavigation, animated), times);
 		}
@@ -191,7 +197,7 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="useModalNavigation">Whether or not the expected navigation should have been modal</param>
 		/// <param name="animated">Whether or not the expected navigation should have been animated</param>
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.NavigateAsync should have been called</param>
-		protected void VerifyNavigateAsync(string path, Expression<Func<INavigationParameters, bool>> parameterValidation, bool useModalNavigation, bool animated, Func<Times> times)
+		protected void VerifyNavigation(string path, Expression<Func<INavigationParameters, bool>> parameterValidation, bool useModalNavigation, bool animated, Func<Times> times)
 		{
 			_mockPlatformNavigation.Verify(x => x.NavigateAsync(path, It.Is(parameterValidation), useModalNavigation, animated), times);
 		}
@@ -203,7 +209,7 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="useModalNavigation">Whether or not the expected navigation should have been modal</param>
 		/// <param name="animated">Whether or not the expected navigation should have been animated</param>
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.GoBackAsync should have been called</param>
-		protected void VerifyGoBackAsync(INavigationParameters parameters, bool useModalNavigation, bool animated, Func<Times> times)
+		protected void VerifyNavigationGoBack(INavigationParameters parameters, bool useModalNavigation, bool animated, Func<Times> times)
 		{
 			_mockPlatformNavigation.Verify(x => x.GoBackAsync(parameters, useModalNavigation, animated), times);
 		}
@@ -215,7 +221,7 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="useModalNavigation">Whether or not the expected navigation should have been modal</param>
 		/// <param name="animated">Whether or not the expected navigation should have been animated</param>
 		/// <param name="times">The Moq.Times object that represents the expected number of times IPlatformNavigationService.GoBackAsync should have been called</param>
-		protected void VerifyGoBackAsync(Expression<Func<INavigationParameters, bool>> parameterValidation, bool useModalNavigation, bool animated, Func<Times> times)
+		protected void VerifyNavigationGoBack(Expression<Func<INavigationParameters, bool>> parameterValidation, bool useModalNavigation, bool animated, Func<Times> times)
 		{
 			_mockPlatformNavigation.Verify(x => x.GoBackAsync(It.Is(parameterValidation), useModalNavigation, animated), times);
 		}

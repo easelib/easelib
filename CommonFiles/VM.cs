@@ -6,31 +6,42 @@ namespace Ease.TestCommon
 {
 	public class VM : BindableBase
 	{
+		private IRepo Repo { get; }
+		private INavigationService NavigationService { get; }
+
+		public string MyStringProperty { get; set; }
+
+		public string MyRepoProperty { get => Repo.MyProperty; }
+
 		public VM(INavigationService navigationService, IRepo repo)
 		{
 			NavigationService = navigationService;
 			Repo = repo;
 		}
 
-		private INavigationService NavigationService { get; }
-		private IRepo Repo { get; }
-
 		public void DoSaveData()
 		{
 			Repo.SaveData();
 		}
 
-		public string MyRepoProperty { get => Repo.MyProperty; }
-		public string MyStringProperty { get; set; }
-
-		public async Task DoNavigation(string target)
+		public Task DoNavigationAsync(string target)
 		{
-			await NavigationService.NavigateAsync(target);
+			return NavigationService.NavigateAsync(target);
 		}
 
-		public async Task DoNavigationWithParameters(string target)
+		public Task DoNavigationWithParametersAsync(string target)
 		{
-			await NavigationService.NavigateAsync(target, new NavigationParameters("x=1"));
+			return NavigationService.NavigateAsync(target, new NavigationParameters("x=1"));
+		}
+
+		public Task GoBackAsync()
+		{
+			return NavigationService.GoBackAsync();
+		}
+
+		public Task GoBackWithParametersAsync()
+		{
+			return NavigationService.GoBackAsync(new NavigationParameters("x=1"));
 		}
 	}
 }

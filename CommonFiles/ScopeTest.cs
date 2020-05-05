@@ -250,7 +250,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 			var target = "TargetPath";
 			var vm = ResolveType<VM>();
 
-			await vm.DoNavigation(target);
+			await vm.DoNavigationAsync(target);
 
 			VerifyNavigation(target, Times.Once);
 		}
@@ -267,7 +267,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 			var target = "TargetPath";
 			var vm = ResolveType<VM>();
 			
-			await vm.DoNavigationWithParameters(target);
+			await vm.DoNavigationWithParametersAsync(target);
 
 			VerifyNavigation(target, null as INavigationParameters, Times.Once);
 		}
@@ -284,7 +284,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 			var target = "TargetPath";
 			var vm = ResolveType<VM>();
 
-			await vm.DoNavigationWithParameters(target);
+			await vm.DoNavigationWithParametersAsync(target);
 
 			VerifyNavigation(target, p => p.ContainsKey("x") && p.GetValue<string>("x").Equals("1"), Times.Once);
 		}
@@ -301,9 +301,57 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 			var target = "TargetPath";
 			var vm = ResolveType<VM>();
 
-			await vm.DoNavigationWithParameters(target);
+			await vm.DoNavigationWithParametersAsync(target);
 
 			VerifyNavigation(target, new NavigationParameters("x=1"), Times.Once);
+		}
+
+#if IS_MSTEST
+		[TestMethod]
+#elif IS_NUNIT
+		[Test]
+#elif IS_XUNIT
+		[Fact]
+#endif
+		public async Task VmCallsNavigationServicecWhenGoBackAsync()
+		{
+			var vm = ResolveType<VM>();
+
+			await vm.GoBackAsync();
+
+			VerifyNavigationGoBack(Times.Once);
+		}
+
+#if IS_MSTEST
+		[TestMethod]
+#elif IS_NUNIT
+		[Test]
+#elif IS_XUNIT
+		[Fact]
+#endif
+		public async Task VmCallsNavigationServicecWhenGoBackAsyncParametersCheckingSpecificParameters()
+		{
+			var vm = ResolveType<VM>();
+
+			await vm.GoBackWithParametersAsync();
+
+			VerifyNavigationGoBack(new NavigationParameters("x=1"), Times.Once);
+		}
+
+#if IS_MSTEST
+		[TestMethod]
+#elif IS_NUNIT
+		[Test]
+#elif IS_XUNIT
+		[Fact]
+#endif
+		public async Task VmCallsNavigationServiceWithParameterValidationWhenGoBackAsyncWithParameters()
+		{
+			var vm = ResolveType<VM>();
+
+			await vm.GoBackWithParametersAsync();
+
+			VerifyNavigationGoBack(p => p.ContainsKey("x") && p.GetValue<string>("x").Equals("1"), Times.Once);
 		}
 	}
 }
