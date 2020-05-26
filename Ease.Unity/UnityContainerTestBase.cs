@@ -7,8 +7,8 @@ namespace Ease.Unity
 {
 	public abstract class UnityContainerTestBase : ContainerTestBase
 	{
-		protected UnityContainer Container;
-		protected LifetimeResetter Restter { get; set; }
+		private UnityContainer Container;
+		private LifetimeResetter Restter { get; set; }
 
 		public UnityContainerTestBase()
 		{
@@ -20,6 +20,11 @@ namespace Ease.Unity
 		{
 			Restter = new LifetimeResetter();
 			Container = new UnityContainer();
+		}
+
+		protected void ResetLifetime()
+        {
+			Restter.Reset();
 		}
 
 		private void RegisterResettableType<T>()

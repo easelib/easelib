@@ -26,6 +26,12 @@ namespace Ease.DryIoc
 			ScopeContext = Container.OpenScope();
 		}
 
+		protected void ResetLifetime()
+        {
+			ScopeContext?.Dispose();
+			ScopeContext = Container.OpenScope();
+		}
+
 		protected override void RegisterType<T>()
 		{
 			Container.Register<T>();

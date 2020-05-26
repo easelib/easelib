@@ -1,11 +1,10 @@
-﻿using DryIoc;
-using Ease.DryIoc;
+﻿using Ease.DryIoc;
 using NUnit.Framework;
 using System;
 
 namespace Ease.NUnit.DryIoc
 {
-	public abstract class NUnitDryIocContainerTestBase : DryIocContainerTestBase
+    public abstract class NUnitDryIocContainerTestBase : DryIocContainerTestBase
 	{
 		private Action onPerTestSetup;
 
@@ -13,8 +12,7 @@ namespace Ease.NUnit.DryIoc
 		{
 			RegisterPerTestSetup(() =>
 			{
-				ScopeContext?.Dispose();
-				ScopeContext = Container.OpenScope();
+				ResetLifetime();
 			});
 		}
 

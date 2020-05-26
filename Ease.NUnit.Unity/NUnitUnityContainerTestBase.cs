@@ -12,7 +12,7 @@ namespace Ease.NUnit.Unity
 		{
 			RegisterPerTestSetup(() => 
 			{
-				Restter.Reset();
+				ResetLifetime();
 			});
 		}
 
