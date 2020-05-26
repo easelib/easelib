@@ -6,8 +6,8 @@ namespace Ease.DryIoc
 {
     public abstract class DryIocContainerTestBase : ContainerTestBase
 	{
-		protected Container Container;
-		protected IResolverContext ScopeContext;
+		private Container Container;
+		private IResolverContext ScopeContext;
 
 		protected DryIocContainerTestBase()
 		{
