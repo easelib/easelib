@@ -1,30 +1,30 @@
-﻿using DryIoc;
-using Ease.DryIoc;
+﻿using Ease.DryIoc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 
 namespace Ease.MsTest
 {
-	public abstract class MsTestDryIocContainerTestBase : DryIocContainerTestBase
+    public abstract class MsTestDryIocContainerTestBase : DryIocContainerTestBase
 	{
-		private static Dictionary<Type, Container> Containers { get; set; } = new Dictionary<Type, Container>();
+		private Action onPerTestSetup;
 
 		public MsTestDryIocContainerTestBase()
 		{
-			var key = this.GetType();
-			if (!Containers.ContainsKey(key))
+			RegisterPerTestSetup(() =>
 			{
-				CreateContainer();
-				RegisterTypes();
+				ResetLifetime();
+			});
+		}
 
-				Containers.Add(key, Container);
-			}
-			else
-			{
-				Container = Containers[key];
-			}
+		[TestInitialize]
+		public void PerTestSetup()
+        {
+			onPerTestSetup?.Invoke();
+        }
 
-			ScopeContext = Container.OpenScope();
+		protected void RegisterPerTestSetup(Action perTestSetup)
+		{
+			onPerTestSetup += perTestSetup;
 		}
 	}
 }
