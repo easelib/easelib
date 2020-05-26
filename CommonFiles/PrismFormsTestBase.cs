@@ -39,11 +39,11 @@ namespace Ease.XUnit.Unity.PrismForms
 
 		protected Action<Mock<IEventAggregator>> OnIEventAggregatorMockCreated;
 
-		private bool _baseRegisterTypesCalled;
+		private bool baseRegisterTypesCalled;
 
 		public PrismFormsTestBase()
 		{
-			if ( !_baseRegisterTypesCalled )
+			if ( !baseRegisterTypesCalled )
 				throw new InvalidOperationException("Inherited classes must call base.RegisterTypes() when overriding");
 		}
 
@@ -65,7 +65,7 @@ namespace Ease.XUnit.Unity.PrismForms
 			RegisterMockType(() => OnIPageDialogServiceMockCreated);
 			RegisterMockType(() => OnIEventAggregatorMockCreated);
 
-			_baseRegisterTypesCalled = true;
+			baseRegisterTypesCalled = true;
 		}
 
 		/// <summary>

@@ -17,14 +17,14 @@ namespace Ease.MsTest
 				CreateContainer();
 				RegisterTypes();
 
-				Containers.Add(key, _container);
+				Containers.Add(key, Container);
 			}
 			else
 			{
-				_container = Containers[key];
+				Container = Containers[key];
 			}
 
-			_scopeContext = _container.OpenScope();
+			ScopeContext = Container.OpenScope();
 		}
 	}
 }

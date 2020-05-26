@@ -4,6 +4,6 @@ namespace Ease.XUnit.DryIoc
 {
 	public abstract class XUnitDryIocContainerTestBase : DryIocContainerTestBase
     {
-		// Added for consistency between testing frameworks, do we need this for xUnit?
+		// Added for consistency between testing frameworks
 	}
 }

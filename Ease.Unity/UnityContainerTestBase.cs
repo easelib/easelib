@@ -7,8 +7,8 @@ namespace Ease.Unity
 {
 	public abstract class UnityContainerTestBase : ContainerTestBase
 	{
-		protected UnityContainer _container;
-		protected LifetimeResetter _restter { get; set; }
+		protected UnityContainer Container;
+		protected LifetimeResetter Restter { get; set; }
 
 		public UnityContainerTestBase()
 		{
@@ -18,18 +18,18 @@ namespace Ease.Unity
 
 		protected override void CreateContainer()
 		{
-			_restter = new LifetimeResetter();
-			_container = new UnityContainer();
+			Restter = new LifetimeResetter();
+			Container = new UnityContainer();
 		}
 
 		private void RegisterResettableType<T>()
 		{
-			_container.RegisterType<T>(new ResettableLifetimeManager(_restter));
+			Container.RegisterType<T>(new ResettableLifetimeManager(Restter));
 		}
 
 		private void RegisterResettableType<TInterface, TImplementation>() where TImplementation : TInterface
 		{
-			_container.RegisterType<TInterface, TImplementation>(new ResettableLifetimeManager(_restter));
+			Container.RegisterType<TInterface, TImplementation>(new ResettableLifetimeManager(Restter));
 		}
 
 		private void RegisterResettableTypeFactory<T>(Func<T> factory)
@@ -39,7 +39,7 @@ namespace Ease.Unity
 
 		private void RegisterResettableType<T>(Func<T> factory)
 		{
-			_container.RegisterFactory<T>(c => factory(), new ResettableLifetimeManager(_restter));
+			Container.RegisterFactory<T>(c => factory(), new ResettableLifetimeManager(Restter));
 		}
 
 		protected override void RegisterMockType<T>(Func<Action<Mock<T>>> onCreatedCallbackFactory)
@@ -72,7 +72,7 @@ namespace Ease.Unity
 
 		protected override T ResolveType<T>()
 		{
-			return _container.Resolve<T>();
+			return Container.Resolve<T>();
 		}
 
 		protected class LifetimeResetter

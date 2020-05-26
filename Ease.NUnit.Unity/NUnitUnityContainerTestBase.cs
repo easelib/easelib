@@ -6,25 +6,25 @@ namespace Ease.NUnit.Unity
 {
 	public abstract class NUnitUnityContainerTestBase : UnityContainerTestBase
 	{
-		private Action _onPerTestSetup;
+		private Action onPerTestSetup;
 
 		public NUnitUnityContainerTestBase()
 		{
 			RegisterPerTestSetup(() => 
 			{
-				_restter.Reset();
+				Restter.Reset();
 			});
 		}
 
 		[SetUp]
 		public void PerTestSetup()
 		{
-			_onPerTestSetup?.Invoke();
+			onPerTestSetup?.Invoke();
 		}
 
 		protected void RegisterPerTestSetup(Action perTestSetup)
 		{
-			_onPerTestSetup += perTestSetup;
+			onPerTestSetup += perTestSetup;
 		}
 	}
 }

@@ -6,8 +6,8 @@ namespace Ease.DryIoc
 {
     public abstract class DryIocContainerTestBase : ContainerTestBase
 	{
-		protected Container _container;
-		protected IResolverContext _scopeContext;
+		protected Container Container;
+		protected IResolverContext ScopeContext;
 
 		protected DryIocContainerTestBase()
 		{
@@ -22,29 +22,28 @@ namespace Ease.DryIoc
 				.WithTrackingDisposableTransients()
 				.WithDefaultReuse(new CurrentScopeReuse());
 
-			_container = new Container(rules);
-
-			_scopeContext = _container.OpenScope();
+			Container = new Container(rules);
+			ScopeContext = Container.OpenScope();
 		}
 
 		protected override void RegisterType<T>()
 		{
-			_container.Register<T>();
+			Container.Register<T>();
 		}
 
 		protected override void RegisterType<TInterface, TImplementation>()
 		{
-			_container.Register<TInterface, TImplementation>();
+			Container.Register<TInterface, TImplementation>();
 		}
 
 		protected override void RegisterTypeFactory<T>(Func<T> factory)
 		{
-			_container.RegisterDelegate<T>(c => factory());
+			Container.RegisterDelegate<T>(c => factory());
 		}
 
 		protected override void RegisterMockType<T>(Func<Action<Mock<T>>> onMockInstanceCreatedFactory)
 		{
-			_container.Register<T>(made: Made.Of<T>(() => CreateAndInitializeMockInstance(onMockInstanceCreatedFactory)));
+			Container.Register<T>(made: Made.Of<T>(() => CreateAndInitializeMockInstance(onMockInstanceCreatedFactory)));
 		}
 
 		private static T CreateAndInitializeMockInstance<T>(Func<Action<Mock<T>>> onMockInstanceCreatedFactory) where T : class
@@ -57,7 +56,7 @@ namespace Ease.DryIoc
 
 		protected override T ResolveType<T>()
 		{
-			return _scopeContext.Resolve<T>();
+			return ScopeContext.Resolve<T>();
 		}
 	}
 }
