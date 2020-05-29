@@ -9,7 +9,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <Version Condition=" '$(EASE_RELEASE)' != '' ">$(EASE_RELEASE)</Version>
-    <Version Condition=" '$(EASE_RELEASE)' == '' ">0.2.0</Version>
+    <Version Condition=" '$(EASE_RELEASE)' == '' ">0.2.1</Version>
 
   </PropertyGroup>
 
