@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.DryIoc", "Ease.NUnit.DryIoc\Ease.NUnit.DryIoc.csproj", "{851C8478-B6B2-4782-9C55-BD547A8A00FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.DryIoc", "src\Ease.NUnit.DryIoc\Ease.NUnit.DryIoc.csproj", "{851C8478-B6B2-4782-9C55-BD547A8A00FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.DryIoc.PrismForms", "Ease.NUnit.DryIoc.PrismForms\Ease.NUnit.DryIoc.PrismForms.csproj", "{27B17879-F600-4095-B744-1D70EEDB98B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.DryIoc.PrismForms", "src\Ease.NUnit.DryIoc.PrismForms\Ease.NUnit.DryIoc.PrismForms.csproj", "{27B17879-F600-4095-B744-1D70EEDB98B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.DryIoc.PrismForms.Tests", "Ease.NUnit.DryIoc.PrismForms.Tests\Ease.NUnit.DryIoc.PrismForms.Tests.csproj", "{72ACEF64-3812-4C9C-84C7-EEB88FC52B40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.DryIoc.PrismForms.Tests", "src\Ease.NUnit.DryIoc.PrismForms.Tests\Ease.NUnit.DryIoc.PrismForms.Tests.csproj", "{72ACEF64-3812-4C9C-84C7-EEB88FC52B40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.MsTest.Tests", "Ease.MsTest.Tests\Ease.MsTest.Tests.csproj", "{3B5DE91B-0B2F-444D-B476-0DAB711239A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.MsTest.Tests", "src\Ease.MsTest.Tests\Ease.MsTest.Tests.csproj", "{3B5DE91B-0B2F-444D-B476-0DAB711239A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.Unity", "Ease.NUnit.Unity\Ease.NUnit.Unity.csproj", "{E0B29BBB-7091-4CEC-8F8C-E3A5CC1CA75F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.Unity", "src\Ease.NUnit.Unity\Ease.NUnit.Unity.csproj", "{E0B29BBB-7091-4CEC-8F8C-E3A5CC1CA75F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.Unity.PrismForms", "Ease.NUnit.Unity.PrismForms\Ease.NUnit.Unity.PrismForms.csproj", "{16654675-E121-467F-8435-1461AD5AA916}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.Unity.PrismForms", "src\Ease.NUnit.Unity.PrismForms\Ease.NUnit.Unity.PrismForms.csproj", "{16654675-E121-467F-8435-1461AD5AA916}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSTest", "MSTest", "{F620365B-2AD2-4D96-91D3-7DF65EB22CCD}"
 EndProject
@@ -21,15 +21,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DryIoc", "DryIoc", "{10DB11
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{DFF03830-1735-4D0A-ACCB-C430FFCD6F6D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.Unity.PrismForms.Tests", "Ease.NUnit.Unity.PrismForms.Tests\Ease.NUnit.Unity.PrismForms.Tests.csproj", "{D199C45B-870E-469B-B772-DA34BD6B1506}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.NUnit.Unity.PrismForms.Tests", "src\Ease.NUnit.Unity.PrismForms.Tests\Ease.NUnit.Unity.PrismForms.Tests.csproj", "{D199C45B-870E-469B-B772-DA34BD6B1506}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NUnit", "NUnit", "{164E85F3-30B8-4648-AA60-959D9544444B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease", "Ease\Ease.csproj", "{00094E20-24F5-4F4F-9027-15A150F3AFF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease", "src\Ease\Ease.csproj", "{00094E20-24F5-4F4F-9027-15A150F3AFF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.DryIoc", "Ease.DryIoc\Ease.DryIoc.csproj", "{391728BB-AC63-4332-9B28-176DE8AAA966}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.DryIoc", "src\Ease.DryIoc\Ease.DryIoc.csproj", "{391728BB-AC63-4332-9B28-176DE8AAA966}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.Unity", "Ease.Unity\Ease.Unity.csproj", "{A5AC51BE-B73B-41DE-A397-3AF61FAE70D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.Unity", "src\Ease.Unity\Ease.Unity.csproj", "{A5AC51BE-B73B-41DE-A397-3AF61FAE70D8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XUnit", "XUnit", "{E66DF1AA-0EC0-4B52-83A7-053132449BD6}"
 EndProject
@@ -37,17 +37,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DryIoc", "DryIoc", "{113613
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unity", "Unity", "{99A2621D-070F-42DD-A4C5-3C65A3713723}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.XUnit.DryIoc", "Ease.XUnit.DryIoc\Ease.XUnit.DryIoc.csproj", "{DB80A908-8381-42F2-97C3-0F59B9E018BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.XUnit.DryIoc", "src\Ease.XUnit.DryIoc\Ease.XUnit.DryIoc.csproj", "{DB80A908-8381-42F2-97C3-0F59B9E018BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.XUnit.DryIoc.PrismForms", "Ease.XUnit.DryIoc.PrismForms\Ease.XUnit.DryIoc.PrismForms.csproj", "{609A8629-8F4D-4D2E-B637-B32867C4ED8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.XUnit.DryIoc.PrismForms", "src\Ease.XUnit.DryIoc.PrismForms\Ease.XUnit.DryIoc.PrismForms.csproj", "{609A8629-8F4D-4D2E-B637-B32867C4ED8D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.XUnit.DryIoc.PrismForms.Tests", "Ease.XUnit.DryIoc.PrismForms.Tests\Ease.XUnit.DryIoc.PrismForms.Tests.csproj", "{8A9BE5C7-0678-47E7-ACA2-3E293DD5BD15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ease.XUnit.DryIoc.PrismForms.Tests", "src\Ease.XUnit.DryIoc.PrismForms.Tests\Ease.XUnit.DryIoc.PrismForms.Tests.csproj", "{8A9BE5C7-0678-47E7-ACA2-3E293DD5BD15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ease.XUnit.Unity", "Ease.XUnit.Unity\Ease.XUnit.Unity.csproj", "{2BA3028D-A07F-461C-9012-95FFD848B61C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ease.XUnit.Unity", "src\Ease.XUnit.Unity\Ease.XUnit.Unity.csproj", "{2BA3028D-A07F-461C-9012-95FFD848B61C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ease.XUnit.Unity.PrismForms", "Ease.XUnit.Unity.PrismForms\Ease.XUnit.Unity.PrismForms.csproj", "{17490E15-C4BB-429C-AE13-8EB10F825426}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ease.XUnit.Unity.PrismForms", "src\Ease.XUnit.Unity.PrismForms\Ease.XUnit.Unity.PrismForms.csproj", "{17490E15-C4BB-429C-AE13-8EB10F825426}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ease.XUnit.Unity.PrismForms.Tests", "Ease.XUnit.Unity.PrismForms.Tests\Ease.XUnit.Unity.PrismForms.Tests.csproj", "{359EB28D-0CBF-42FB-AA3D-E07FEA798777}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ease.XUnit.Unity.PrismForms.Tests", "src\Ease.XUnit.Unity.PrismForms.Tests\Ease.XUnit.Unity.PrismForms.Tests.csproj", "{359EB28D-0CBF-42FB-AA3D-E07FEA798777}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
