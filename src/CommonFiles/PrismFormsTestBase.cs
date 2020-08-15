@@ -8,12 +8,14 @@ using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-#if IS_MSTEST
-namespace Ease.MsTest.PrismForms
+#if (IS_DRYIOC && IS_MSTEST)
+namespace Ease.MsTest.DryIoc.PrismForms
 #elif (IS_DRYIOC && IS_NUNIT)
 namespace Ease.NUnit.DryIoc.PrismForms
 #elif (IS_DRYIOC && IS_XUNIT)
 namespace Ease.XUnit.DryIoc.PrismForms
+#elif (IS_UNITY && IS_MSTEST)
+namespace Ease.MsTest.Unity.PrismForms
 #elif (IS_UNITY && IS_NUNIT)
 namespace Ease.NUnit.Unity.PrismForms
 #elif (IS_UNITY && IS_XUNIT)
@@ -21,12 +23,14 @@ namespace Ease.XUnit.Unity.PrismForms
 #endif
 {
 	public class PrismFormsTestBase
-#if IS_MSTEST
+#if (IS_DRYIOC && IS_MSTEST)
 	: MsTestDryIocContainerTestBase
 #elif (IS_DRYIOC && IS_NUNIT)
 	: NUnitDryIocContainerTestBase
 #elif (IS_DRYIOC && IS_XUNIT)
 	: XUnitDryIocContainerTestBase
+#elif (IS_UNITY && IS_MSTEST)
+	: MsTestUnityContainerTestBase
 #elif (IS_UNITY && IS_NUNIT)
 	: NUnitUnityContainerTestBase
 #elif (IS_UNITY && IS_XUNIT)

@@ -19,11 +19,15 @@
     <ArtifactStagingRoot Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' ">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</ArtifactStagingRoot>
     <PackageOutputPath>$([System.IO.Path]::Combine('$(ArtifactStagingRoot)', 'NuGet'))</PackageOutputPath>
 
-    <IsTestProject>$(MSBuildProjectName.Contains('Tests'))</IsTestProject>
+    <IsTestProject>$(MSBuildProjectName.EndsWith('.Tests'))</IsTestProject>
 
     <IsUnityProject>$(MSBuildProjectName.Contains('Unity'))</IsUnityProject>
     <IsDryIocProject>$(MSBuildProjectName.Contains('DryIoc'))</IsDryIocProject>
     <IsPrismFormsProject>$(MSBuildProjectName.Contains('PrismForms'))</IsPrismFormsProject>
+
+    <IsMsTestProject>$(MSBuildProjectName.Contains('MsTest'))</IsMsTestProject>
+    <IsNUnitProject>$(MSBuildProjectName.Contains('NUnit'))</IsNUnitProject>
+    <IsXUnitProject>$(MSBuildProjectName.Contains('xUnit'))</IsXUnitProject>
 
     <!-- <SignAssembly Condition="">True</SignAssembly> -->
     <!-- <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)easelib.snk</AssemblyOriginatorKeyFile> -->

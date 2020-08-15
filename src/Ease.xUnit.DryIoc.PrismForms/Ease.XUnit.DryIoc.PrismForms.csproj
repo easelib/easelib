@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+  	<AssemblyName>Ease.xUnit.DryIoc.PrismForms</AssemblyName>
+    <PackageId>Ease.xUnit.DryIoc.PrismForms</PackageId>
+
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DefineConstants>IS_DRYIOC;IS_XUNIT</DefineConstants>
   </PropertyGroup>

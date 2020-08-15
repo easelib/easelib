@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+  	<AssemblyName>Ease.xUnit.DryIoc</AssemblyName>
+    <PackageId>Ease.xUnit.DryIoc</PackageId>
+
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

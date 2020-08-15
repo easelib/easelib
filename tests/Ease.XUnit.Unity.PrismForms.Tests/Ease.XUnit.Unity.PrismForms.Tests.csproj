@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ease.XUnit.Unity.PrismForms\Ease.XUnit.Unity.PrismForms.csproj" />
+    <ProjectReference Include="..\..\src\Ease.XUnit.Unity.PrismForms\Ease.XUnit.Unity.PrismForms.csproj" />
   </ItemGroup>
 
 </Project>

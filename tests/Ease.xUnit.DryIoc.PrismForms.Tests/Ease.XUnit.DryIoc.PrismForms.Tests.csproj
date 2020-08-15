@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ease.xUnit.DryIoc.PrismForms\Ease.XUnit.DryIoc.PrismForms.csproj" />
+    <ProjectReference Include="..\..\src\Ease.xUnit.DryIoc.PrismForms\Ease.XUnit.DryIoc.PrismForms.csproj" />
   </ItemGroup>
 
 </Project>

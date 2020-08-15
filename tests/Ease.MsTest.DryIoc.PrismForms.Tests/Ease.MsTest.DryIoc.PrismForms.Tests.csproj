@@ -11,25 +11,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\CommonFiles\IRepo.cs" Link="PrismForms.Tests\IRepo.cs" />
-    <Compile Include="..\CommonFiles\ScopeTest.cs" Link="PrismForms.Tests\ScopeTest.cs" />
-    <Compile Include="..\CommonFiles\PrismFormsTestBase.cs" Link="PrismFormsTestBase.cs" />
-    <Compile Include="..\CommonFiles\VM.cs" Link="PrismForms.Tests\VM.cs" />
+    <Compile Include="..\CommonFiles\IRepo.cs" Link="IRepo.cs" />
+    <Compile Include="..\CommonFiles\ScopeTest.cs" Link="ScopeTest.cs" />
+    <Compile Include="..\CommonFiles\VM.cs" Link="VM.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DryIoc.dll" Version="4.1.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="Moq" Version="4.14.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
-    <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ease.DryIoc\Ease.DryIoc.csproj" />
-    <ProjectReference Include="..\Ease\Ease.csproj" />
+    <ProjectReference Include="..\..\src\Ease.MsTest.DryIoc.PrismForms\Ease.MsTest.DryIoc.PrismForms.csproj" />
   </ItemGroup>
 
 </Project>

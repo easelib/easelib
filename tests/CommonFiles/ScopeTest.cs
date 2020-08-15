@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 #if IS_MSTEST
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-namespace Ease.MsTest.PrismForms.Tests
+#if IS_DRYIOC
+namespace Ease.MsTest.DryIoc.PrismForms.Tests
+#elif IS_UNITY
+namespace Ease.MsTest.Unity.PrismForms.Tests
+#endif
 #elif IS_NUNIT
 using NUnit.Framework;
 #if IS_DRYIOC

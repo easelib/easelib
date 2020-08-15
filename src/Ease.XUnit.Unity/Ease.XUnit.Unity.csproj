@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+  	<AssemblyName>Ease.xUnit.Unity</AssemblyName>
+    <PackageId>Ease.xUnit.Unity</PackageId>
+    
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

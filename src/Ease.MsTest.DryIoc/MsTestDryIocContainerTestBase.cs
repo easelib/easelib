@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Ease.MsTest
+namespace Ease.MsTest.DryIoc
 {
     public abstract class MsTestDryIocContainerTestBase : DryIocContainerTestBase
 	{

@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+  	<AssemblyName>Ease.xUnit.Unity.PrismForms</AssemblyName>
+    <PackageId>Ease.xUnit.Unity.PrismForms</PackageId>
+
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DefineConstants>IS_UNITY;IS_XUNIT</DefineConstants>
   </PropertyGroup>

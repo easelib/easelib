@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ease.NUnit.DryIoc.PrismForms\Ease.NUnit.DryIoc.PrismForms.csproj" />
+    <ProjectReference Include="..\..\src\Ease.NUnit.DryIoc.PrismForms\Ease.NUnit.DryIoc.PrismForms.csproj" />
   </ItemGroup>
 
 </Project>
