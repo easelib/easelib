@@ -1,0 +1,30 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+
+  	<AssemblyName>Ease.MsTest.DryIoc.PrismForms</AssemblyName>
+    <PackageId>Ease.MsTest.DryIoc.PrismForms</PackageId>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DefineConstants>IS_DRYIOC;IS_MSTEST</DefineConstants>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CommonFiles\PrismFormsTestBase.cs" Link="PrismFormsTestBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ease.MsTest.DryIoc\Ease.MsTest.DryIoc.csproj" />
+  </ItemGroup>
+
+</Project>

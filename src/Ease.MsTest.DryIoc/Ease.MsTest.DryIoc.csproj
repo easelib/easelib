@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+
+  	<AssemblyName>Ease.MsTest.DryIoc</AssemblyName>
+    <PackageId>Ease.MsTest.DryIoc</PackageId>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <DefineConstants>IS_DRYIOC;IS_MSTEST</DefineConstants>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ease.DryIoc\Ease.DryIoc.csproj" />
+  </ItemGroup>
+
+</Project>
