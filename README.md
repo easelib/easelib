@@ -32,7 +32,7 @@ Package                                                                         
 After adding the Ease package to your test library simply reference the base test class:
 
 ```csharp
-public class MyClassTest : Ease.NUnit.DryIoc.NUnitDryIocContainerTestBase
+public class CartServiceTest : Ease.NUnit.DryIoc.NUnitDryIocContainerTestBase
 ```
 
 Create a field to delegate the setup action for each type you will want mocked:
@@ -47,12 +47,12 @@ In your constructor:
 * Use `RegisterPerTestSetup` to register any actions that need to be ran before each test, including assigning default actions to mock setup. With NUnit you can alternatively use the `[Setup]` method attribute if desired.
 
 ```csharp
-public MyClassTest
+public CartServiceTest
 {
     //Register concrete implementation for interface
     RegisterType<IHttpMessageHandlerFactory, MockApiHttpHandlerFactory>(); 
     //Register the type you will be testing
-    RegisterType<MyClass>(); 
+    RegisterType<CartService>(); 
     //Register a mock for ICartRepositoryMock using the field onICartRepositoryMockCreated for setup
     RegisterMockType(() => onICartRepositoryMockCreated); 
     //This will run before each test method is called
@@ -78,11 +78,11 @@ Create a test
 
 ```csharp
 [Test]
-public async Task ICartRepositoryGetProductsIsCalledOnNavigation()
+public async Task LoadProducts_CallsICartRepositoryGetProducts()
 {
-    //You can set onICartRepositoryMockCreated to a different action here, before resolving MyClass
-    var myClass = await Resolve<MyClass>(); //depends on ICartRepository
-    myClass.LoadProducts();
+    //You can set onICartRepositoryMockCreated to a different action here, before resolving CartService
+    var cartService = await Resolve<CartService>(); //depends on ICartRepository
+    cartService.LoadProducts();
     GetMock<ICartRepository>().Verify(m => m.GetProducts(), Times.Once);
 }
 ```
