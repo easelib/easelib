@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+
+  	<AssemblyName>Ease.MsTest.Unity</AssemblyName>
+    <PackageId>Ease.MsTest.Unity</PackageId>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <DefineConstants>IS_UNITY;IS_MSTEST</DefineConstants>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ease.Unity\Ease.Unity.csproj" />
+  </ItemGroup>
+
+</Project>

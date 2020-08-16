@@ -1,0 +1,30 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+
+  	<AssemblyName>Ease.MsTest.Unity.PrismForms</AssemblyName>
+    <PackageId>Ease.MsTest.Unity.PrismForms</PackageId>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DefineConstants>IS_UNITY;IS_MSTEST</DefineConstants>
+
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CommonFiles\PrismFormsTestBase.cs" Link="PrismFormsTestBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ease.MsTest.Unity\Ease.MsTest.Unity.csproj" />
+  </ItemGroup>
+
+</Project>
