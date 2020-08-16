@@ -14,10 +14,6 @@ artifacts:
 - path: Artifacts\NuGet\*.nupkg
   name: nugets
 
-branches:
-  only:
-  - master
-
 skip_commits:
   files:
     - '**\*.md'
@@ -33,4 +29,3 @@ deploy:
     secure: j/i7K4TBOarCsC9rrzZSfTt8ww/51HtYutI0w2mnAcELOuqpQvkLRIDCoaPYYm++
   on:
     branch: master
-    APPVEYOR_REPO_TAG: true
