@@ -55,7 +55,7 @@
     <Version Condition=" '$(EASE_RELEASE)' == '' AND '$(IS_TAGGED)' AND '$(APPVEYOR_REPO_TAG_NAME)' != '' ">$(APPVEYOR_REPO_TAG_NAME)</Version>
     <Version Condition=" '$(EASE_RELEASE)' != '' ">$(EASE_RELEASE)</Version>
     <!-- Update this version when incrementing Library Versions -->
-    <VersionPrefixBase>0.4</VersionPrefixBase>
+    <VersionPrefixBase>0.5</VersionPrefixBase>
     <BuildNumber Condition=" '$(BuildNumber)' == '' And '$(APPVEYOR_BUILD_NUMBER)' != '' ">$(APPVEYOR_BUILD_NUMBER)</BuildNumber>
     <BuildNumber Condition=" '$(BuildNumber)' == ''">0</BuildNumber>
     <VersionPrefix Condition=" '$(EASE_RELEASE)' == '' ">$(VersionPrefixBase).$(BuildNumber)</VersionPrefix>
