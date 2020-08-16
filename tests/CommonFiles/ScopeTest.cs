@@ -251,7 +251,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 
 			await vm.DoNavigationAsync(target);
 
-			VerifyNavigation(target, Times.Once);
+			VerifyPrismNavigateAsync(target, Times.Once);
 		}
 
 #if IS_MSTEST
@@ -268,7 +268,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 			
 			await vm.DoNavigationAsync(target, null);
 
-			VerifyNavigation(target, null as INavigationParameters, Times.Once);
+			VerifyPrismNavigateAsync(target, null as INavigationParameters, Times.Once);
 		}
 
 #if IS_MSTEST
@@ -292,7 +292,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 
 			await vm.DoNavigationAsync(target, navigationParameters);
 
-			VerifyNavigation(target, p => p.ContainsKey(parameterKey) && p.GetValue<string>(parameterKey).Equals(parameterValue), Times.Once);
+			VerifyPrismNavigateAsync(target, p => p.ContainsKey(parameterKey) && p.GetValue<string>(parameterKey).Equals(parameterValue), Times.Once);
 		}
 
 #if IS_MSTEST
@@ -313,7 +313,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 
 			await vm.DoNavigationAsync(target, navigationParameters);
 
-			VerifyNavigation(target, navigationParameters, Times.Once);
+			VerifyPrismNavigateAsync(target, navigationParameters, Times.Once);
 		}
 
 #if IS_MSTEST
@@ -329,7 +329,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 
 			await vm.DoGoBackAsync();
 
-			VerifyNavigationGoBack(Times.Once);
+			VerifyPrismGoBackAsync(Times.Once);
 		}
 
 #if IS_MSTEST
@@ -349,7 +349,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 
 			await vm.DoGoBackAsync(navigationParameters);
 
-			VerifyNavigationGoBack(navigationParameters, Times.Once);
+			VerifyPrismGoBackAsync(navigationParameters, Times.Once);
 		}
 
 #if IS_MSTEST
@@ -372,7 +372,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 
 			await vm.DoGoBackAsync(navigationParameters);
 
-			VerifyNavigationGoBack(p => p.ContainsKey(parameterKey) && p.GetValue<string>(parameterKey).Equals(parameterValue), Times.Once);
+			VerifyPrismGoBackAsync(p => p.ContainsKey(parameterKey) && p.GetValue<string>(parameterKey).Equals(parameterValue), Times.Once);
 		}
 
 #if IS_MSTEST
@@ -389,7 +389,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 
 			await vm.DoGoBackAsync(navigationParameters, true, true);
 
-			VerifyNavigationGoBack(navigationParameters, true, true, Times.Once);
+			VerifyPrismGoBackAsync(navigationParameters, true, true, Times.Once);
 		}
 
 #if IS_MSTEST
