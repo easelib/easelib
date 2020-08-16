@@ -360,7 +360,7 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="navigationMode">The navigation mode that will be added to the navigation parameters</param>
 		/// <param name="parameters">The navigation parameters to pass through to OnNavigatedFrom</param>
 		/// <returns>The resolved instance of the desired ViewModel</returns>
-		protected T ResolveAndCallOnNavigatedTo<T>(NavigationMode navigationMode, INavigationParameters parameters)
+		protected T ResolveAndCallOnNavigatedTo<T>(NavigationMode navigationMode = NavigationMode.New, INavigationParameters parameters = null)
 			where T : BindableBase, INavigatedAware
 		{
 			var vm = ResolveType<T>();
@@ -378,7 +378,7 @@ namespace Ease.XUnit.Unity.PrismForms
 		/// <param name="navigationMode">The navigation mode that will be added to the navigation parameters</param>
 		/// <param name="parameters">The navigation parameters to pass through to OnNavigatedFrom</param>
 		/// <returns>The resolved instance of the desired ViewModel</returns>
-		protected T ResolveAndCallOnNavigatedFrom<T>(NavigationMode navigationMode, INavigationParameters parameters = null)
+		protected T ResolveAndCallOnNavigatedFrom<T>(NavigationMode navigationMode = NavigationMode.New, INavigationParameters parameters = null)
 			where T : BindableBase, INavigatedAware
 		{
 			T vm = ResolveType<T>();
