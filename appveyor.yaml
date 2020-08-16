@@ -7,6 +7,7 @@ image: Visual Studio 2019
 before_build:
 - ps: dotnet restore
 build:
+  project: EaseLib.sln
   verbosity: minimal
 
 artifacts:
