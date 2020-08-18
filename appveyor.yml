@@ -13,7 +13,7 @@ build:
   verbosity: minimal
 
 artifacts:
-- path: Artifacts\NuGet\*.nupkg
+- path: Artifacts\NuGet\*
   name: nugets
 
 skip_commits:
@@ -31,3 +31,5 @@ deploy:
     secure: j/i7K4TBOarCsC9rrzZSfTt8ww/51HtYutI0w2mnAcELOuqpQvkLRIDCoaPYYm++
   on:
     branch: master
+  skip_symbols: false
+    symbol_server: https://api.nuget.org/v3/index.json
