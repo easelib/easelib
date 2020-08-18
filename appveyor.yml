@@ -32,4 +32,4 @@ deploy:
   on:
     branch: master
   skip_symbols: false
-    symbol_server: https://api.nuget.org/v3/index.json
+  symbol_server: https://api.nuget.org/v3/index.json
