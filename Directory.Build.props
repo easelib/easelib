@@ -94,6 +94,7 @@
   <PropertyGroup Condition="'$(CI)' == 'True'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <SourceLinkCreate>true</SourceLinkCreate>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(CI)' == 'True'">
