@@ -61,8 +61,10 @@
     <!--<Version Condition=" '$(EASE_RELEASE)' == '' AND '$(IS_TAGGED)' AND '$(APPVEYOR_REPO_TAG_NAME)' != '' ">$(APPVEYOR_REPO_TAG_NAME)</Version>
     <Version Condition=" '$(EASE_RELEASE)' != '' ">$(EASE_RELEASE)</Version>-->
 
+    
     <AppveyorVersion></AppveyorVersion>
-    <AppveyorVersion Condition=" '$(APPVEYOR_BUILD_VERSION)' != '' ">$(APPVEYOR_BUILD_VERSION)</AppveyorVersion>
+    <AppveyorVersion Condition=" '$(IS_TAGGED)' AND '$(APPVEYOR_REPO_TAG_NAME)' != '' ">$([System.String]::Copy('$(APPVEYOR_REPO_TAG_NAME)').TrimStart('v'))</AppveyorVersion>
+    <AppveyorVersion Condition=" '$(AppveyorVersion)' == '' AND '$(APPVEYOR_BUILD_VERSION)' != '' ">$(APPVEYOR_BUILD_VERSION)</AppveyorVersion>
 
     <!-- Update this version when incrementing Library Versions -->
     <!--<VersionPrefixBase>0.5</VersionPrefixBase>
@@ -72,8 +74,8 @@
     <VersionPrefix Condition=" '$(AppveyorVersion)' != '' ">$(AppveyorVersion)</VersionPrefix>
     <VersionPrefix Condition=" '$(AppveyorVersion)' == '' ">0.5.0</VersionPrefix>
 
-    <VersionSuffix Condition=" '$(VersionSuffix)' == '' And '$(APPVEYOR_PULL_REQUEST_NUMBER)' != '' ">$(APPVEYOR_PULL_REQUEST_NUMBER)-pr</VersionSuffix>
-    <VersionSuffix Condition=" '$(VersionSuffix)' == '' And '$(APPVEYOR_REPO_BRANCH)' != 'master' ">$(APPVEYOR_REPO_BRANCH)</VersionSuffix>
+    <VersionSuffix Condition=" !'$(IS_TAGGED)' AND '$(VersionSuffix)' == '' And '$(APPVEYOR_PULL_REQUEST_NUMBER)' != '' ">$(APPVEYOR_PULL_REQUEST_NUMBER)-pr</VersionSuffix>
+    <VersionSuffix Condition=" !'$(IS_TAGGED)' AND '$(VersionSuffix)' == '' And '$(APPVEYOR_REPO_BRANCH)' != 'master' ">$(APPVEYOR_REPO_BRANCH)</VersionSuffix>
 
     <!-- <VersionSuffix Condition=" '$(EASE_RELEASE)' == '' And '$(IS_RELEASE)' "></VersionSuffix> -->
     <PackageReleaseNotes Condition=" '$(VersionSuffix)' == 'pre' ">https://github.com/EaseLibrary/Ease/releases/tag/v$(VersionPrefix)-pre</PackageReleaseNotes>
@@ -102,14 +104,5 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
   </ItemGroup>
-  
-  <!--<ItemGroup Condition="'$(CI)' == 'True'">
-    
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-
-  </ItemGroup>-->
 
 </Project>

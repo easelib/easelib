@@ -1,4 +1,4 @@
-version: 0.4.{build}
+version: 0.5.{build}
 
 pull_requests:
   do_not_increment_build_number: false
@@ -15,7 +15,7 @@ build:
   verbosity: minimal
 
 artifacts:
-- path: Artifacts\NuGet\*
+- path: /Artifacts\/NuGet\/.*(\.|\.s)nupkg/
   name: nugets
 
 skip_commits:
@@ -33,6 +33,13 @@ deploy:
     secure: j/i7K4TBOarCsC9rrzZSfTt8ww/51HtYutI0w2mnAcELOuqpQvkLRIDCoaPYYm++
   on:
     branch: master
+    appveyor_repo_tag: true
   skip_symbols: false
   symbol_server: https://api.nuget.org/v3/index.json
-
+#- provider: GitHub
+#  auth_token:
+#    secure: 
+#  artifacts: nugets
+#  tag: v$(appveyor_build_version)
+#  on:
+#    branch: master
