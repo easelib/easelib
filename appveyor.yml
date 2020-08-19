@@ -8,7 +8,7 @@ skip_tags: true
 image: Visual Studio 2019
 
 init:
-- ps: $env:customnugetversion = if ($env:APPVEYOR_REPO_TAG -eq $True) { "$env:APPVEYOR_BUILD_VERSION" } else { "$env:APPVEYOR_BUILD_VERSION-$env:APPVEYOR_REPO_BRANCH" }
+- ps: if ($env:APPVEYOR_REPO_TAG -eq $True) {  ("$env:APPVEYOR_REPO_TAG_NAME").TrimStart("v") } else { if ($env:APPVEYOR_PULL_REQUEST_NUMBER -ne "" -and $env:APPVEYOR_PULL_REQUEST_NUMBER -ne $null) { "$env:APPVEYOR_BUILD_VERSION-$env:APPVEYOR_REPO_BRANCH-pr$env:APPVEYOR_PULL_REQUEST_NUMBER" } else {"$env:APPVEYOR_BUILD_VERSION-$env:APPVEYOR_REPO_BRANCH" }}
 - ps: Update-AppveyorBuild -Version $env:customnugetversion
 
 before_build:
