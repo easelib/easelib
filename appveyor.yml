@@ -20,7 +20,7 @@ build:
   verbosity: minimal
 
 artifacts:
-- path: /Artifacts/NuGet/.*(\.|\.s)nupkg/
+- path: Artifacts/NuGet/*nupkg
   name: nugets
 
 skip_commits:
