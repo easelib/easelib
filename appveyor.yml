@@ -6,6 +6,11 @@ pull_requests:
 skip_tags: true
   
 image: Visual Studio 2019
+
+init:
+- ps: $env:customnugetversion = if ($env:APPVEYOR_REPO_TAG -eq $True) { "$env:APPVEYOR_BUILD_VERSION" } else { "$env:APPVEYOR_BUILD_VERSION-$env:APPVEYOR_REPO_BRANCH" }
+- ps: Update-AppveyorBuild -Version $env:customnugetversion
+
 before_build:
 - ps: dotnet restore
 # - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -43,3 +48,4 @@ deploy:
 #  tag: v$(appveyor_build_version)
 #  on:
 #    branch: master
+#    appveyor_repo_tag: true
