@@ -13,6 +13,7 @@
     <PackageReleaseNotes Condition=" '$(APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)' != '' And '$(PackageReleaseNotes)' == '' ">$(APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/EaseLibrary/Ease</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>True</IncludeSource>
@@ -95,15 +96,20 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <SourceLinkCreate>true</SourceLinkCreate>
+    <DeterministicSourcePaths>true</DeterministicSourcePaths>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(CI)' == 'True'">
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+  
+  <!--<ItemGroup Condition="'$(CI)' == 'True'">
     
     <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
 
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
