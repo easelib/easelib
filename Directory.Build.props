@@ -76,6 +76,7 @@
 
     <VersionSuffix Condition=" !'$(IS_TAGGED)' AND '$(VersionSuffix)' == '' And '$(APPVEYOR_PULL_REQUEST_NUMBER)' != '' ">$(APPVEYOR_PULL_REQUEST_NUMBER)-pr</VersionSuffix>
     <VersionSuffix Condition=" !'$(IS_TAGGED)' AND '$(VersionSuffix)' == '' And '$(APPVEYOR_REPO_BRANCH)' != 'master' ">$(APPVEYOR_REPO_BRANCH)</VersionSuffix>
+    <VersionSuffix Condition=" !'$(IS_TAGGED)' AND '$(VersionSuffix)' == '' And '$(APPVEYOR_REPO_BRANCH)' == 'master' ">pre</VersionSuffix>
 
     <!-- <VersionSuffix Condition=" '$(EASE_RELEASE)' == '' And '$(IS_RELEASE)' "></VersionSuffix> -->
     <PackageReleaseNotes Condition=" '$(VersionSuffix)' == 'pre' ">https://github.com/EaseLibrary/Ease/releases/tag/v$(VersionPrefix)-pre</PackageReleaseNotes>
