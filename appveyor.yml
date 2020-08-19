@@ -8,7 +8,7 @@ skip_tags: true
 image: Visual Studio 2019
 before_build:
 - ps: dotnet restore
-- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 build:
   project: EaseLib.sln
