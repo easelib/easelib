@@ -2,28 +2,35 @@
 
 Ease is a .Net library to ease unit testing through IoC containers and Mocking.
 
-Ease supports both [NUnit](https://github.com/nunit) & [XUnit](https://github.com/xunit) for unit tests and uses [Moq](https://github.com/moq) for mocking. It currently supports [DryIoc](https://github.com/dadhi/DryIoc) & [Unity](https://github.com/unitycontainer) IoC containers and has extensions with basic support for [Prism.Forms](https://github.com/prismlibrary).
+Ease supports [NUnit](https://github.com/nunit), [XUnit](https://github.com/xunit), and [MSTest](https://github.com/microsoft/testfx) for unit tests and uses [Moq](https://github.com/moq) for mocking. It currently supports [DryIoc](https://github.com/dadhi/DryIoc) & [Unity](https://github.com/unitycontainer) IoC containers and has extensions with basic support for [Prism.Forms](https://github.com/prismlibrary).
 
 Our philosophy is to embrace the magic of DI and the IoC containers that we are already using in our app development to make testing easier to write and manage. 
 
 # Build Status
 
-[![Build status](https://ci.appveyor.com/api/projects/status/py04o4modm9xg03k/branch/master?svg=true)](https://ci.appveyor.com/project/duanenewman/ease/branch/master)
+Branch |Status
+-------|------
+Master |[![Build status](https://ci.appveyor.com/api/projects/status/py04o4modm9xg03k/branch/master?svg=true)](https://ci.appveyor.com/project/duanenewman/ease/branch/master)
+Develop|[![Build status](https://ci.appveyor.com/api/projects/status/py04o4modm9xg03k/branch/master?svg=true)](https://ci.appveyor.com/project/duanenewman/ease/branch/develop)
 
 # Installation
 
 You can install the libraries from [Nuget.org](https://www.nuget.org/profiles/EaseLibrary):
 
-Package                                                                                     |NUnit|XUnit|DryIoc| Unity|Prism Forms
---------------------------------------------------------------------------------------------|-----|-----|------|------|-----------
-[Ease.NUnit.DryIoc](https://www.nuget.org/packages/Ease.NUnit.DryIoc/)                      |3.1.2|     | 4.1.4|      |
-[Ease.NUnit.DryIoc.PrismForms](https://www.nuget.org/packages/Ease.NUnit.DryIoc.PrismForms/)|3.1.2|     | 4.1.4|      |7.2.0.1422
-[Ease.NUnit.Unity](https://www.nuget.org/packages/Ease.NUnit.Unity/)                        |3.1.2|     |      |5.11.7|
-[Ease.NUnit.Unity.PrismForms](https://www.nuget.org/packages/Ease.NUnit.Unity.PrismForms/)  |3.1.2|     |      |5.11.7|7.2.0.1422
-[Ease.XUnit.DryIoc](https://www.nuget.org/packages/Ease.XUnit.DryIoc/)                      |     |2.4.1| 4.1.4|      |
-[Ease.XUnit.DryIoc.PrismForms](https://www.nuget.org/packages/Ease.XUnit.DryIoc.PrismForms/)|     |2.4.1| 4.1.4|      |7.2.0.1422
-[Ease.XUnit.Unity](https://www.nuget.org/packages/Ease.XUnit.Unity/)                        |     |2.4.1|      |5.11.7|
-[Ease.XUnit.Unity.PrismForms](https://www.nuget.org/packages/Ease.XUnit.Unity.PrismForms/)  |     |2.4.1|      |5.11.7|7.2.0.1422
+Package                                                                                       |Version                                                                          |NUnit|XUnit|MsTest|DryIoc| Unity|Prism Forms
+----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|-----|-----|------|------|------|-----------
+[Ease.NUnit.DryIoc](https://www.nuget.org/packages/Ease.NUnit.DryIoc/)                        |![#](https://img.shields.io/nuget/v/ease.nunit.dryioc.svg?style=flat)            |3.1.2|     |      | 4.1.4|      |
+[Ease.NUnit.DryIoc.PrismForms](https://www.nuget.org/packages/Ease.NUnit.DryIoc.PrismForms/)  |![#](https://img.shields.io/nuget/v/ease.nunit.dryioc.prismforms.svg?style=flat) |3.1.2|     |      | 4.1.4|      |7.2.0.1422
+[Ease.NUnit.Unity](https://www.nuget.org/packages/Ease.NUnit.Unity/)                          |![#](https://img.shields.io/nuget/v/ease.nunit.Unity.svg?style=flat)             |3.1.2|     |      |      |5.11.7|
+[Ease.NUnit.Unity.PrismForms](https://www.nuget.org/packages/Ease.NUnit.Unity.PrismForms/)    |![#](https://img.shields.io/nuget/v/ease.nunit.Unity.PrismForms.svg?style=flat)  |3.1.2|     |      |      |5.11.7|7.2.0.1422
+[Ease.XUnit.DryIoc](https://www.nuget.org/packages/Ease.XUnit.DryIoc/)                        |![#](https://img.shields.io/nuget/v/ease.XUnit.dryioc.svg?style=flat)            |     |2.4.1|      | 4.1.4|      |
+[Ease.XUnit.DryIoc.PrismForms](https://www.nuget.org/packages/Ease.XUnit.DryIoc.PrismForms/)  |![#](https://img.shields.io/nuget/v/ease.XUnit.DryIoc.PrismForms.svg?style=flat) |     |2.4.1|      | 4.1.4|      |7.2.0.1422
+[Ease.XUnit.Unity](https://www.nuget.org/packages/Ease.XUnit.Unity/)                          |![#](https://img.shields.io/nuget/v/ease.XUnit.Unity.svg?style=flat)             |     |2.4.1|      |      |5.11.7|
+[Ease.XUnit.Unity.PrismForms](https://www.nuget.org/packages/Ease.XUnit.Unity.PrismForms/)    |![#](https://img.shields.io/nuget/v/ease.XUnit.Unity.PrismForms.svg?style=flat)  |     |2.4.1|      |      |5.11.7|7.2.0.1422
+[Ease.MsTest.DryIoc](https://www.nuget.org/packages/Ease.MsTest.DryIoc/)                      |![#](https://img.shields.io/nuget/v/ease.MsTest.DryIoc.svg?style=flat)           |     |     | 2.1.1| 4.1.4|      |
+[Ease.MsTest.DryIoc.PrismForms](https://www.nuget.org/packages/Ease.MsTest.DryIoc.PrismForms/)|![#](https://img.shields.io/nuget/v/ease.MsTest.DryIoc.PrismForms.svg?style=flat)|     |     | 2.1.1| 4.1.4|      |7.2.0.1422
+[Ease.MsTest.Unity](https://www.nuget.org/packages/Ease.MsTest.Unity/)                        |![#](https://img.shields.io/nuget/v/ease.MsTest.Unity.svg?style=flat)            |     |     | 2.1.1|      |5.11.7|
+[Ease.MsTest.Unity.PrismForms](https://www.nuget.org/packages/Ease.MsTest.Unity.PrismForms/)  |![#](https://img.shields.io/nuget/v/ease.MsTest.Unity.PrismForms.svg?style=flat) |     |     | 2.1.1|      |5.11.7|7.2.0.1422
 
 # Getting Started
 

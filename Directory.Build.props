@@ -13,7 +13,9 @@
     <PackageReleaseNotes Condition=" '$(APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)' != '' And '$(PackageReleaseNotes)' == '' ">$(APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/EaseLibrary/Ease</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSource>True</IncludeSource>
     <ArtifactStagingRoot>$(MSBuildThisFileDirectory)Artifacts</ArtifactStagingRoot>
     <ArtifactStagingRoot Condition=" '$(BUILD_ARTIFACTSTAGINGDIRECTORY)' != '' ">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</ArtifactStagingRoot>
@@ -39,6 +41,10 @@
     <PackageTags Condition=" '$(IsDryIocProject)' == 'True' ">$(PackageTags);dryioc</PackageTags>
     <PackageTags Condition=" '$(IsPrismFormsProject)' == 'True' ">$(PackageTags);prism;mvvm;android;ios;xamarin;xamarin.forms</PackageTags>
 
+    <PackageTags Condition=" '$(IsMsTestProject)' == 'True' ">$(PackageTags);mstest</PackageTags>
+    <PackageTags Condition=" '$(IsNUnitProject)' == 'True' ">$(PackageTags);nunit</PackageTags>
+    <PackageTags Condition=" '$(IsXUnitProject)' == 'True' ">$(PackageTags);xunit</PackageTags>
+
     <IS_PREVIEW Condition="'$(IS_PREVIEW)'=='' AND '$(APPVEYOR_PULL_REQUEST_NUMBER)'!=''">true</IS_PREVIEW>
     <IS_PREVIEW Condition=" '$(IS_PREVIEW)' == '' ">false</IS_PREVIEW>
 
@@ -50,21 +56,28 @@
 
   </PropertyGroup>
 
-<!-- Versioning -->
+  <!-- Versioning -->
   <PropertyGroup>
-    <Version Condition=" '$(EASE_RELEASE)' == '' AND '$(IS_TAGGED)' AND '$(APPVEYOR_REPO_TAG_NAME)' != '' ">$(APPVEYOR_REPO_TAG_NAME)</Version>
-    <Version Condition=" '$(EASE_RELEASE)' != '' ">$(EASE_RELEASE)</Version>
-    <!-- Update this version when incrementing Library Versions -->
-    <VersionPrefixBase>0.5</VersionPrefixBase>
-    <BuildNumber Condition=" '$(BuildNumber)' == '' And '$(APPVEYOR_BUILD_NUMBER)' != '' ">$(APPVEYOR_BUILD_NUMBER)</BuildNumber>
-    <BuildNumber Condition=" '$(BuildNumber)' == ''">0</BuildNumber>
-    <VersionPrefix Condition=" '$(EASE_RELEASE)' == '' ">$(VersionPrefixBase).$(BuildNumber)</VersionPrefix>
+    <!--<Version Condition=" '$(EASE_RELEASE)' == '' AND '$(IS_TAGGED)' AND '$(APPVEYOR_REPO_TAG_NAME)' != '' ">$(APPVEYOR_REPO_TAG_NAME)</Version>
+    <Version Condition=" '$(EASE_RELEASE)' != '' ">$(EASE_RELEASE)</Version>-->
 
-    <VersionSuffix Condition=" '$(VersionSuffix)' == '' And '$(APPVEYOR_PULL_REQUEST_NUMBER)' != '' ">pr$(APPVEYOR_PULL_REQUEST_NUMBER)</VersionSuffix>
-    <VersionSuffix Condition=" '$(VersionSuffix)' == '' And '$(APPVEYOR_REPO_BRANCH)' != 'master' ">$(APPVEYOR_REPO_BRANCH)</VersionSuffix>
+    <AppveyorVersion Condition=" '$(APPVEYOR_BUILD_VERSION)' != ''">$(APPVEYOR_BUILD_VERSION)</AppveyorVersion>
+
+    <Version Condition=" '$(AppveyorVersion)' != ''">$(AppveyorVersion)</Version>
+
+    <!--<AppveyorVersion Condition=" '$(IS_TAGGED)' AND '$(APPVEYOR_REPO_TAG_NAME)' != '' ">$([System.String]::Copy('$(APPVEYOR_REPO_TAG_NAME)').TrimStart('v'))</AppveyorVersion>
+    <AppveyorVersion Condition=" '$(AppveyorVersion)' == '' AND '$(APPVEYOR_BUILD_VERSION)' != '' ">$(APPVEYOR_BUILD_VERSION)</AppveyorVersion>
+
+    <VersionPrefix Condition=" '$(AppveyorVersion)' != '' ">$(AppveyorVersion)</VersionPrefix>-->
+    <VersionPrefix Condition=" '$(AppveyorVersion)' == '' ">0.5.0</VersionPrefix>
+
+    <!--<VersionSuffix Condition=" !'$(IS_TAGGED)' AND '$(VersionSuffix)' == '' And '$(APPVEYOR_PULL_REQUEST_NUMBER)' != '' ">$(APPVEYOR_PULL_REQUEST_NUMBER)-pr</VersionSuffix>
+    <VersionSuffix Condition=" !'$(IS_TAGGED)' AND '$(VersionSuffix)' == '' And '$(APPVEYOR_REPO_BRANCH)' != 'master' ">$(APPVEYOR_REPO_BRANCH)</VersionSuffix>
+    <VersionSuffix Condition=" !'$(IS_TAGGED)' AND '$(VersionSuffix)' == '' And '$(APPVEYOR_REPO_BRANCH)' == 'master' ">pre</VersionSuffix>-->
+
     <!-- <VersionSuffix Condition=" '$(EASE_RELEASE)' == '' And '$(IS_RELEASE)' "></VersionSuffix> -->
-    <PackageReleaseNotes Condition=" '$(VersionSuffix)' == 'pre' ">https://github.com/EaseLibrary/Ease/releases/tag/v$(VersionPrefix)-pre</PackageReleaseNotes>
-    <PackageReleaseNotes Condition=" '$(VersionSuffix)' == '' ">https://github.com/EaseLibrary/Ease/releases/tag/v$(VersionPrefix)</PackageReleaseNotes>
+    <!--<PackageReleaseNotes Condition=" '$(VersionSuffix)' == 'pre' ">https://github.com/EaseLibrary/Ease/releases/tag/v$(VersionPrefix)-pre</PackageReleaseNotes>
+    <PackageReleaseNotes Condition=" '$(VersionSuffix)' == '' ">https://github.com/EaseLibrary/Ease/releases/tag/v$(VersionPrefix)</PackageReleaseNotes>-->
     <PackageReleaseNotes Condition=" '$(Version)' != '' ">https://github.com/EaseLibrary/Ease/releases/tag/v$(Version)</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -77,6 +90,17 @@
           Visible="False"
           Pack="True"
           PackagePath="" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(CI)' == 'True'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <SourceLinkCreate>true</SourceLinkCreate>
+    <DeterministicSourcePaths>true</DeterministicSourcePaths>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
   </ItemGroup>
 
 </Project>
