@@ -67,6 +67,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 			base.RegisterTypes();
 
 			RegisterMockType(() => onIRepoMockCreated);
+			RegisterMockType<IService>();
 		}
 
 #if IS_MSTEST
@@ -144,6 +145,22 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 			vm.DoSaveData();
 
 			ValidateMock<IRepo>(m => m.Verify(i => i.SaveData(), Times.Once));
+		}
+
+#if IS_MSTEST
+		[TestMethod]
+#elif IS_NUNIT
+		[Test]
+#elif IS_XUNIT
+		[Fact]
+#endif
+		public async Task VmCallsServiceLongRunningTaskWhenDoLongRunningTask()
+		{
+			var vm = ResolveType<VM>();
+
+			await vm.DoLongRunningTask();
+
+			ValidateMock<IService>(m => m.Verify(i => i.LongRunningTask(), Times.Once));
 		}
 
 

@@ -8,22 +8,29 @@ namespace Ease.TestCommon
 	public class VM : BindableBase
 	{
 		private IRepo Repo { get; }
+		private IService Service { get; }
 		private INavigationService NavigationService { get; }
 
 		public string MyStringProperty { get; set; }
 
 		public string MyRepoProperty { get => Repo.MyProperty; }
 
-		public VM(INavigationService navigationService, IRepo repo)
+		public VM(INavigationService navigationService, IRepo repo, IService service)
 		{
 			NavigationService = navigationService;
 			Repo = repo;
+			Service = service;
 		}
 
 		public void DoSaveData()
 		{
 			Repo.SaveData();
 		}
+
+		public Task DoLongRunningTask()
+        {
+			return Service.LongRunningTask();
+        }
 
 		public Task DoNavigationAsync(string target)
 		{

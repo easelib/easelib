@@ -15,6 +15,9 @@
     <Compile Include="..\CommonFiles\IRepo.cs" Link="IRepo.cs" />
     <Compile Include="..\CommonFiles\ScopeTest.cs" Link="ScopeTest.cs" />
     <Compile Include="..\CommonFiles\VM.cs" Link="VM.cs" />
+    <Compile Include="..\CommonFiles\IService.cs">
+      <Link>IService.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
