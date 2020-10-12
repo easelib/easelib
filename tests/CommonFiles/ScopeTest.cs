@@ -340,7 +340,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 #elif IS_XUNIT
 		[Fact]
 #endif
-		public async Task VmCallsNavigationServicecWhenGoBackAsync()
+		public async Task VmCallsNavigationServiceWhenGoBackAsync()
 		{
 			var vm = ResolveType<VM>();
 
@@ -356,7 +356,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 #elif IS_XUNIT
 		[Fact]
 #endif
-		public async Task VmCallsNavigationServicecWhenGoBackAsyncParametersCheckingSpecificParameters()
+		public async Task VmCallsNavigationServiceWhenGoBackAsyncParametersCheckingSpecificParameters()
 		{
 			var vm = ResolveType<VM>();
 			var navigationParameters = new NavigationParameters()
@@ -399,7 +399,7 @@ namespace Ease.XUnit.Unity.PrismForms.Tests
 #elif IS_XUNIT
 		[Fact]
 #endif
-		public async Task VmCallsNavigationServicecWhenGoBackAsyncWithModalNavigation()
+		public async Task VmCallsNavigationServiceWhenGoBackAsyncWithModalNavigation()
 		{
 			var vm = ResolveType<VM>();
 			var navigationParameters = new NavigationParameters();
