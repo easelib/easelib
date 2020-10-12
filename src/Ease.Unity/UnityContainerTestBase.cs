@@ -47,7 +47,12 @@ namespace Ease.Unity
 			Container.RegisterFactory<T>(c => factory(), new ResettableLifetimeManager(Resetter));
 		}
 
-		protected override void RegisterMockType<T>(Func<Action<Mock<T>>> onCreatedCallbackFactory)
+        protected override void RegisterMockType<T>()
+        {
+			RegisterMockType<T>(() => null);
+        }
+
+        protected override void RegisterMockType<T>(Func<Action<Mock<T>>> onCreatedCallbackFactory)
 		{
 			RegisterResettableType<T>(() => CreateAndInitializeMockInstance(onCreatedCallbackFactory));
 		}

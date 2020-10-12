@@ -14,6 +14,8 @@ namespace Ease
 			where TImplementation : TInterface, new();
 		abstract protected void RegisterTypeFactory<T>(Func<T> factory)
 			where T : class;
+		abstract protected void RegisterMockType<T>()
+			where T : class;
 		abstract protected void RegisterMockType<T>(Func<Action<Mock<T>>> onCreatedCallbackFactory)
 			where T : class;
 

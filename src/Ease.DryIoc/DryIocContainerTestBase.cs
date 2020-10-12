@@ -47,7 +47,12 @@ namespace Ease.DryIoc
 			Container.RegisterDelegate<T>(c => factory());
 		}
 
-		protected override void RegisterMockType<T>(Func<Action<Mock<T>>> onMockInstanceCreatedFactory)
+        protected override void RegisterMockType<T>()
+        {
+			RegisterMockType<T>(() => null);
+        }
+
+        protected override void RegisterMockType<T>(Func<Action<Mock<T>>> onMockInstanceCreatedFactory)
 		{
 			Container.Register<T>(made: Made.Of<T>(() => CreateAndInitializeMockInstance(onMockInstanceCreatedFactory)));
 		}
